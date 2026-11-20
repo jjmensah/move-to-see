@@ -20,6 +20,7 @@ import {
   type V2,
   type World,
 } from "./data";
+import { useNarrow } from "./hooks";
 
 // ------------------------------------------
 // Formatters
@@ -38,6 +39,16 @@ const verdict = (supported: boolean) => (
 const jitter = (trial: number) => (((trial * 17) % 41) - 20) * 1.6;
 
 // ------------------------------------------
+// LAYOUT
+// ------------------------------------------
+// Chart geometry for wide screens and for phones, where the three columns
+// sit closer together so all of them fit without scrolling.
+const LAYOUT = {
+  wide: { w: 640, cols: [170, 340, 510], x0: 70, x1: 600, tick: 60, spread: 1 },
+  narrow: { w: 300, cols: [85, 170, 255], x0: 40, x1: 290, tick: 32, spread: 0.35 },
+};
+
+// ------------------------------------------
 // Triplets
 // ------------------------------------------
 // One line per trial joining its three controllers' time scores.
@@ -51,12 +62,13 @@ function Triplets({
   select: (trial: number) => void;
 }) {
   const id = useId();
-  const x = (i: number, trial: number) => 170 + i * 170 + jitter(trial);
+  const g = LAYOUT[useNarrow() ? "narrow" : "wide"];
+  const x = (i: number, trial: number) => g.cols[i] + jitter(trial) * g.spread;
   const y = (seconds: number) => 48 + seconds * 8;
   return (
     <svg
       className="chart"
-      viewBox="0 0 640 330"
+      viewBox={`0 0 ${g.w} 330`}
       role="group"
       aria-labelledby={`${id}-title ${id}-desc`}
       style={{ maxWidth: 1080, marginInline: "auto" }}
@@ -72,22 +84,15 @@ function Triplets({
       <g className="grid">
         {[0, 5, 10, 15, 20, 25, 30].map(t => (
           <g key={t}>
-            <line x1="70" x2="600" y1={y(t)} y2={y(t)} />
-            <text x="60" y={y(t) + 4} textAnchor="end">
+            <line x1={g.x0} x2={g.x1} y1={y(t)} y2={y(t)} />
+            <text x={g.tick} y={y(t) + 4} textAnchor="end">
               {t}
             </text>
           </g>
         ))}
       </g>
       {CTRLS.map((c, i) => (
-        <text
-          key={c}
-          className="label"
-          x={x(i, 0) - jitter(0)}
-          y="36"
-          textAnchor="middle"
-          style={{ fill: `var(--${c})` }}
-        >
+        <text key={c} className="label" x={g.cols[i]} y="36" textAnchor="middle" style={{ fill: `var(--${c})` }}>
           {CTRL_SHORT[c]}
         </text>
       ))}
@@ -186,7 +191,7 @@ function Triplets({
             )}
           </g>
         ))}
-      <text x="340" y="316" textAnchor="middle">
+      <text x={g.w / 2 + 20} y="316" textAnchor="middle">
         □ not localized · 30 s score
       </text>
     </svg>
