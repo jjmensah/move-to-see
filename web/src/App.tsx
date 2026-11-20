@@ -11,7 +11,7 @@ import Decision from "./Decision";
 import Results from "./Results";
 import Evidence from "./Evidence";
 import ThemeToggle from "./ThemeToggle";
-import { useScrolled } from "./hooks";
+import { useReveal, useScrolled } from "./hooks";
 import {
   CONDS,
   load,
@@ -52,6 +52,7 @@ export default function App() {
   const [playSignal, setPlaySignal] = useState(0);
   const [decisionTruth, setDecisionTruth] = useState<number[] | null>(null);
   const scrolled = useScrolled();
+  useReveal(Boolean(world && results));
 
   useEffect(() => {
     Promise.all([load<World>("world.json"), load<ResultsData>("results.json")])
