@@ -171,6 +171,25 @@ Every verdict is written up in [`docs/verification/results.md`](docs/verificatio
   all outputs and rerunning every experiment with those versions reproduced every reported number; only the recorded
   computation times changed.
 
+## The interactive site
+
+<p align="center"><a href="docs/images/site-replay.png"><img src="docs/images/site-replay.png" alt="The interactive replay of a fog trial" width="820"></a></p>
+
+The site in [`web/`](web/) is built with React, TypeScript and Vite, with hand-drawn SVG charts:
+
+| section | what you can do |
+| --- | --- |
+| Replay | pick any condition and trial, then play or scrub through all three robots, their beliefs and fields of view |
+| Sensor | move sliders for reflectivity, fog and sunlight and watch the detection range change |
+| Decision | step through three planning steps of a fog trial and click any viewpoint to see its score |
+| Results | see all 40 paired trials of a condition at once and open any of them in the replay |
+| Evidence | read every registered check, its criteria and its verdict |
+
+[`web/scripts/build_data.py`](web/scripts/build_data.py) exports the replays, the sensor curves and the verification
+ledger, recomputes every statistic of the main comparison from the raw trial records, and stops if any differs from the
+registered results. [`web/scripts/export_decisions.py`](web/scripts/export_decisions.py) exports the planning steps only
+after checking that its rerun reproduces the recorded trial.
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
