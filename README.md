@@ -94,6 +94,54 @@ with constant range noise. All three controllers update their belief with the sa
 difference between them is how they pick where to go. Each trial gives all three the same target position and the same
 random noise, so every trial is a paired comparison.
 
+## Results
+
+40 paired trials per condition, 30 s each. The *time to localize* is the moment from which the belief mean stays
+within 0.10 m of the true target for five consecutive scans (30 s if it never does).
+
+<p align="center"><img src="docs/figures/readme/time_to_localize.png" alt="Median time to localize, with 95% intervals and success counts, by condition and controller" width="820"></p>
+
+| condition | information-driven | fixed route | physics-blind |
+| --- | ---: | ---: | ---: |
+| clear air, black target | **7.0 s** · 40/40 | 9.5 s · 40/40 | 30.0 s · 17/40 |
+| fog, 20 m visibility | **9.0 s** · 40/40 | 17.0 s · 36/40 | 30.0 s · 0/40 |
+| sunlight, 1 sun | **11.5 s** · 39/40 | 18.0 s · 35/40 | 30.0 s · 0/40 |
+| control: white target, clear | 4.0 s · 40/40 | 5.0 s · 40/40 | 4.0 s · 40/40 |
+
+Median time to localize · trials localized out of 40.
+
+<p align="center"><img src="docs/figures/readme/paths_fog.png" alt="Paths of the three controllers in fog trial 3" width="720"></p>
+
+In this fog trial the information-driven robot drives along the top of the yard to the side of the target's region
+and turns in towards it, localizing the target in 9 s; the fixed route gets there at 10.5 s. The physics-blind planner,
+which expects to detect the target from much farther away than it can, stops near the rough ground and never
+localizes it.
+
+<p align="center"><img src="docs/figures/readme/error_vs_time.png" alt="Median localization error over time in fog for the three controllers" width="760"></p>
+
+Over all 40 fog trials, the median information-driven error drops below the 0.10 m tolerance after about 9 s and
+settles near 3 mm; the fixed route takes until about 17 s, and the physics-blind planner never gets there.
+
+<p align="center"><img src="docs/figures/readme/paired_fog.png" alt="Paired time scores in fog: information-driven against fixed route" width="680"></p>
+
+Trial by trial, the information-driven planner is faster than the fixed route in 30 of the 40 fog trials, ties one and
+is slower in nine.
+
+### Registered hypotheses
+
+| hypothesis | condition | information-driven vs | median paired difference (95 % CI) | faster / tie / slower | Holm p |
+| --- | --- | --- | ---: | ---: | ---: |
+| H1 | clear air | fixed route | −2.5 s (−2.5 to −2.0) | 40 / 0 / 0 | 7.5 × 10⁻⁸ |
+| H1 | fog | fixed route | −2.25 s (−6.5 to −1.75) | 30 / 1 / 9 | 7.2 × 10⁻⁴ |
+| H1 | sunlight | fixed route | −6.5 s (−7.5 to −2.25) | 28 / 0 / 12 | 1.8 × 10⁻⁴ |
+| H2 | fog | physics-blind | −21.0 s (−21.75 to −20.0) | 40 / 0 / 0 | 7.5 × 10⁻⁸ |
+| H2 | sunlight | physics-blind | −18.5 s (−20.0 to −17.5) | 39 / 1 / 0 | 7.5 × 10⁻⁸ |
+
+One-sided paired Wilcoxon signed-rank tests with Holm adjustment over the five tests, registered at α = 0.01; all
+supported. **H3**, the control: with a white target in clear air, the median paired difference between the
+information-driven and physics-blind planners is 0 s, with a 95 % bootstrap interval from 0 to 0 s, inside the
+registered ±2 s equivalence margin.
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
