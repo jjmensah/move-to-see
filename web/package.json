@@ -1,0 +1,40 @@
+{
+  "name": "move-to-see-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "data": "../.venv/bin/python scripts/build_data.py",
+    "decisions": "../.venv/bin/python scripts/export_decisions.py",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "test:models": "node scripts/check_models.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "format": "prettier --write src scripts"
+  },
+  "dependencies": {
+    "@fontsource-variable/ibm-plex-sans": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "d3-scale": "^4.0.3",
+    "d3-shape": "^3.2.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-shape": "^3.2.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "playwright-core": "^1.65.1",
+    "prettier": "^3.10.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
