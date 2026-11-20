@@ -6,6 +6,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Replay from "./Replay";
+import Sensor from "./Sensor";
 import ThemeToggle from "./ThemeToggle";
 import {
   CONDS,
@@ -89,6 +90,7 @@ export default function App() {
           <div className="topbar-end">
             <nav aria-label="Sections">
               <a href="#replay">Replay</a>
+              <a href="#sensor">Sensor</a>
             </nav>
             <ThemeToggle />
           </div>
@@ -140,6 +142,20 @@ export default function App() {
           <Replay world={world} condition={sel.condition} trial={sel.trial} onPick={pick} playSignal={playSignal} />
         </section>
 
+        <section id="sensor" className="section" aria-labelledby="sensor-title">
+          <div className="wrap">
+            <div className="section-head">
+              <span className="kicker">The measurement</span>
+              <h2 id="sensor-title">A target you can see is not always one you can measure</h2>
+              <p>
+                The LiDAR measures range from the phase of an amplitude-modulated laser. A dark target returns little
+                light; fog absorbs it on the way out and back, and sunlight adds noise that raises the detection
+                threshold. These curves come straight from the sensor model the robot plans with.
+              </p>
+            </div>
+            <Sensor world={world} replayCondition={sel.condition} />
+          </div>
+        </section>
 
 
 
