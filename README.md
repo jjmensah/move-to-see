@@ -173,12 +173,15 @@ Every verdict is written up in [`docs/verification/results.md`](docs/verificatio
 
 ## The interactive site
 
-<p align="center"><a href="docs/images/site-replay.png"><img src="docs/images/site-replay.png" alt="The interactive replay of a fog trial" width="820"></a></p>
+<p align="center"><a href="docs/images/site-hero.png"><img src="docs/images/site-hero.png" alt="The interactive site: the question, the headline numbers and the replay" width="820"></a></p>
+
+<p align="center"><a href="docs/images/site-replay.png"><img src="docs/images/site-replay.png" alt="The replay of a fog trial with all three controllers" width="820"></a></p>
 
 The site in [`web/`](web/) is built with React, TypeScript and Vite, with hand-drawn SVG charts:
 
 | section | what you can do |
 | --- | --- |
+| How it works | the loop in three illustrated cards: scan, update, move |
 | Replay | pick any condition and trial, then play or scrub through all three robots, their beliefs and fields of view |
 | Sensor | move sliders for reflectivity, fog and sunlight and watch the detection range change |
 | Decision | step through three planning steps of a fog trial and click any viewpoint to see its score |
