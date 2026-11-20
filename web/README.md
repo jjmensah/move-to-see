@@ -10,6 +10,7 @@ registered check.
 
 | Section | What it does |
 | --- | --- |
+| How it works | The loop in three illustrated cards: scan, update, move. |
 | Replay | Top-down yard with the three controllers of one trial: paths, belief mean and 2σ ellipse, field of view, the true target, and the error over time. Pick any condition and trial; play, pause or scrub. The selection is kept in the URL. |
 | Sensor | Detection probability and range noise against range for six reflectivities, five fog levels and five sunlight levels, straight from the analytic sensor model. |
 | Decision | Three planning steps of fog trial 0: every candidate viewpoint coloured by its score, the belief particles and the 24 hypotheses the information bound compares. Click a viewpoint for its information, travel cost and score. |
@@ -55,5 +56,6 @@ The data is committed, so the deployment does not need Python.
 
 ## Stack
 
-React, TypeScript and Vite. Charts are hand-drawn SVG using `d3-scale` and `d3-shape`. Space Grotesk, IBM Plex Sans
-and IBM Plex Mono are bundled locally.
+React, TypeScript and Vite. Charts are hand-drawn SVG using `d3-scale` and `d3-shape`. The page is set in Hanken
+Grotesk with Kalam for handwritten accents and Geist Mono for numbers, all bundled locally, on a coral, ink and paper
+palette with a dark theme.
