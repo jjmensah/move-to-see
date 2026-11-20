@@ -372,8 +372,11 @@ export default function Results({ world, onOpen }: { world: World; onOpen: (c: C
               Difference = information-driven − comparison controller. Negative values favor information-driven. Faster
               / tie / slower counts use paired time scores; Holm adjustment covers all five comparisons.
             </p>
+            <p className="small muted scroll-hint" aria-hidden="true">
+              Swipe sideways for the intervals and verdicts →
+            </p>
             <div className="table-scroll" tabIndex={0} role="region" aria-label="Hypothesis comparisons">
-              <table className="data">
+              <table className="data comparison-table">
                 <thead>
                   <tr>
                     {[

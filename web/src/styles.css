@@ -942,6 +942,19 @@ input[type="range"] {
 .table-scroll {
   overflow-x: auto;
 }
+.comparison-table th,
+.comparison-table td {
+  white-space: nowrap;
+}
+.scroll-hint {
+  display: none;
+  margin: 0;
+}
+@media (max-width: 560px) {
+  .scroll-hint {
+    display: block;
+  }
+}
 table.data {
   width: 100%;
   border-collapse: collapse;
