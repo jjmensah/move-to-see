@@ -38,6 +38,21 @@ seed and pass criteria, before its first full run; the few later changes are doc
 This is my final project for ECE 4240 (Robot Perception) at Cornell. It builds on my midterm, a waveform-level AMCW
 LiDAR simulator, which it extends to 3D and then uses for inference and planning.
 
+## Highlights
+
+- **Faster in every condition.** With a black target the physics-aware planner localizes it in a median **7.0 s** in
+  clear air, **9.0 s** in fog and **11.5 s** in sunlight, against 9.5, 17.0 and 18.0 s for the fixed route.
+- **The physics matters most when the sensor struggles.** The same planner with a physics-blind sensor model localizes
+  the target in **0 of 80** fog and sunlight trials; with the physics it localizes 79 of 80.
+- **A clean control.** With a white target in clear air, which the sensor detects easily, the median paired
+  difference between the two planners is 0 s (95 % interval 0 to 0 s), inside the registered ±2 s margin; 30 of 40
+  pairs tie exactly. That points to the sensor model, not the planner, as the source of the gain.
+- **Registered before it was run.** Five one-sided paired tests, all with Holm-adjusted p ≤ 7.2 × 10⁻⁴; every verdict
+  and the four documented deviations are published.
+- **Verified piece by piece.** 666 fast tests, including oracle suites with independently computed reference values,
+  plus registered experiments that check the sensor model, the field of view, the filter and the information bound on
+  their own.
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
