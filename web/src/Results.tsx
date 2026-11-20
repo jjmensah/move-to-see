@@ -44,7 +44,7 @@ const jitter = (trial: number) => (((trial * 17) % 41) - 20) * 1.6;
 // Chart geometry for wide screens and for phones, where the three columns
 // sit closer together so all of them fit without scrolling.
 const LAYOUT = {
-  wide: { w: 640, cols: [170, 340, 510], x0: 70, x1: 600, tick: 60, spread: 1 },
+  wide: { w: 900, cols: [240, 470, 700], x0: 90, x1: 860, tick: 78, spread: 1.4 },
   narrow: { w: 300, cols: [85, 170, 255], x0: 40, x1: 290, tick: 32, spread: 0.35 },
 };
 
