@@ -307,7 +307,7 @@ export default function App() {
         </section>
 
         <section id="limits" className="band paper" aria-labelledby="limits-title">
-          <div className="wrap" style={{ maxWidth: 820 }}>
+          <div className="wrap grid-2">
             <div className="section-head reveal">
               <span className="kicker">read the results</span>
               <h2 id="limits-title">What this shows, and what it does not</h2>
