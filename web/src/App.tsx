@@ -325,14 +325,37 @@ export default function App() {
             </div>
           </div>
         </section>
+        <section className="final" aria-labelledby="final-title">
+          <div className="wrap">
+            <img className="reveal" src="./icon.svg" alt="" />
+            <h2 id="final-title" className="reveal">
+              Move to <span className="hand">see.</span>
+            </h2>
+            <p className="lede reveal">
+              The code, the registered experiments and every result on this page are in the repository.
+            </p>
+            <div className="cta-row reveal">
+              <a className="button lg" href={REPO}>
+                Read the code
+              </a>
+              <a className="button lg ghost" href={`${REPO}/blob/main/docs/verification/results.md`}>
+                Full results
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
 
-      <footer className="wrap footer">
+      <footer className="footer">
+        <a className="brand" href="#top">
+          <img src="./icon.svg" alt="" />
+          Move to See
+        </a>
         <p>
-          Designed, built and verified by <a href={SITE}>Joseph Junior Mensah</a> as the final project for ECE 4240
-          (Robot Perception) at Cornell, building on the midterm AMCW LiDAR simulator. <a href={REPO}>The repository</a>{" "}
-          has the code, the registered experiments and every result shown here.
+          Designed, built and verified by <a href={SITE}>Joseph Junior Mensah</a> for ECE 4240 (Robot Perception) at
+          Cornell, building on the midterm AMCW LiDAR simulator.
         </p>
+        <a href={REPO}>GitHub</a>
       </footer>
     </>
   );

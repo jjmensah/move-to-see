@@ -992,29 +992,44 @@ table.data .num {
 }
 
 /* ------------------------------------------
-   Limits and footer
+   Closing and footer
    ------------------------------------------
-   Caveat list, footer and loading states. */
-.caveats {
-  margin: 0;
-  padding-left: 18px;
-  display: grid;
-  gap: 10px;
-  color: var(--soft);
-  font-size: var(--step--1);
+   The final call to action, the footer and the loading states. */
+.final {
+  padding: clamp(110px, 14vw, 150px) 0 clamp(80px, 10vw, 110px);
+  text-align: center;
 }
-.caveats b {
-  color: var(--ink);
-  font-weight: 600;
+.final img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 28px;
+  border-radius: 20px;
 }
-
+.final h2 {
+  font-size: clamp(52px, 9.6vw, 136px);
+  margin-bottom: 22px;
+}
+.final h2 .hand {
+  color: var(--cream);
+}
+:root[data-theme="dark"] .final h2 .hand {
+  color: var(--coral-lo);
+}
 .footer {
-  padding-block: 48px 64px;
-  border-top: 1px solid var(--rule);
-  font-size: var(--step--1);
-  color: var(--soft);
-  display: grid;
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px 24px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px var(--gutter) 32px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.footer p {
+  max-width: 70ch;
 }
 .loading,
 .error-box {
@@ -1022,24 +1037,12 @@ table.data .num {
   display: grid;
   place-items: center;
   gap: 12px;
-  color: var(--soft);
   text-align: center;
-  font-size: var(--step--1);
+  font-size: 14.5px;
+  color: var(--soft);
 }
 .boot {
-  min-height: 70vh;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
+  min-height: 100vh;
 }
 
 /* ------------------------------------------
