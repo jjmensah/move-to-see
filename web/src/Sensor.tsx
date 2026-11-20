@@ -230,13 +230,15 @@ export default function Sensor({ world, replayCondition }: { world: World; repla
             <b className="num">{curve.r50M <= lastR ? `${curve.r50M.toFixed(2)} m` : `> ${lastR} m`}</b>
             <span>
               {curve.r50M <= lastR
-                ? "range where half the beams detect it (r₅₀)"
+                ? "50% detection range (r₅₀)"
                 : `r₅₀ = ${curve.r50M.toFixed(1)} m, past the 5.6 m reporting limit`}
             </span>
           </div>
           <div className="stat">
             <b className="num">{curve.pd[cursor].toFixed(2)}</b>
-            <span>detection probability at {r.toFixed(2)} m</span>
+            <span>
+              detection probability at <span className="nowrap">{r.toFixed(2)} m</span>
+            </span>
           </div>
         </div>
       </div>

@@ -518,6 +518,10 @@ code {
 .stat span {
   font-size: 14px;
   color: var(--ink-2);
+  text-wrap: pretty;
+}
+.nowrap {
+  white-space: nowrap;
 }
 .stage-wrap {
   position: relative;
