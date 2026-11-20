@@ -362,7 +362,7 @@ code {
   --faint: var(--ink-2);
 }
 /* On light coral the secondary ink is darkened to keep 4.5:1. */
-:root:not([data-theme="dark"]) :is(.band.coral, .hero, .final) {
+:root:not([data-theme="dark"]) :is(.band.coral, .hero, .final, .footer) {
   --ink-2: #33201f;
 }
 
