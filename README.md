@@ -243,6 +243,15 @@ To regenerate the figures on this page, then run the site (it needs Node.js 24 o
 cd web && npm ci && npm run dev            # http://localhost:5173
 ```
 
+## Limits
+
+These are simulation results for one sensor model in one known yard. The robot knows its pose, the map, the terrain,
+the weather and the target's size and reflectivity; the target is a single stationary box; the fog model attenuates the
+beam but leaves out backscatter. The physics-blind baseline is deliberately mis-specified, and the fixed route is one
+loop of many possible. Time to localize counts simulated seconds. On a laptop the information-driven controller spent on
+average about 1.1 to 1.3 s per half-second step on planning and the belief update with a black target, and 3.3 s with the
+white one, so it does not yet run in real time.
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
