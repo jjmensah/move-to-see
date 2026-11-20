@@ -175,7 +175,8 @@ export default function App() {
         <section id="replay" className="hero" aria-labelledby="replay-title">
           <div className="wrap">
             <h1 id="replay-title" className="reveal" tabIndex={-1}>
-              Where should a robot drive
+              Where should
+              <br />a robot drive
               <br />
               <span className="hand">to see?</span>
             </h1>
