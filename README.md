@@ -142,6 +142,35 @@ supported. **H3**, the control: with a white target in clear air, the median pai
 information-driven and physics-blind planners is 0 s, with a 95 % bootstrap interval from 0 to 0 s, inside the
 registered ±2 s equivalence margin.
 
+## Verification
+
+Each experiment's hypothesis, sample size, seed and pass criteria were written into
+[`sim/registry.yaml`](sim/registry.yaml) before its first full run, and tuning used reserved pilot seeds only. Four
+changes made afterwards, including one added check for the animations, are listed as deviations in the
+[verification plan](docs/verification/vv-plan.md).
+
+| ID | experiment | outcome |
+| --- | --- | --- |
+| F01 | 3D measurement model against the waveform simulation: 60 cells × 4000 scans | supported |
+| F02 | field of view in 3D and its dependence on the robot's motion | supported |
+| F03 | particle-filter coverage on the fixed route: at least 80 % of trials inside the nominal 90 % region in clear air | supported |
+| F04 | information bound against a Monte Carlo estimate of the mutual information: holds in all 120 cases | supported |
+| F05 | main comparison of the three controllers, H1 to H3 | supported |
+| F06 | paired ablations | exploratory |
+| M01 | animations of one fog trial per controller | supported |
+
+Every verdict is written up in [`docs/verification/results.md`](docs/verification/results.md).
+
+- **666 fast tests:** unit tests, oracle suites whose reference values come from hand calculation, brute force,
+  numerical integration or grid Bayes rather than from the production code, property tests and contract tests.
+- **Independent checks:** each module's oracle tests are written from the specification, separately from its
+  implementation, and the analytic sensor model never imports the waveform simulator it is checked against.
+- **No peeking:** inference and planning never see the true target. This is checked structurally and with a
+  metamorphic test that changes the hidden target while keeping the observations fixed.
+- **Reproducible:** every experiment has a fixed seed and records the source fingerprint and package versions. Deleting
+  all outputs and rerunning every experiment with those versions reproduced every reported number; only the recorded
+  computation times changed.
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
