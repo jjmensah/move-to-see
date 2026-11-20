@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "move_to_see"
+version = "0.1.0"
+description = "Move to See: physics-informed active target localization with a 3D AMCW LiDAR (ECE 4240 final)"
+requires-python = ">=3.12"
+dependencies = ["numpy>=2.0", "scipy>=1.13", "matplotlib>=3.8", "pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "hypothesis>=6", "ruff>=0.5"]
+media = ["imageio[ffmpeg]>=2.34"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+markers = ["stat: Monte Carlo statistical validation (slow; run with -m stat)"]
+addopts = "-m 'not stat' -q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["web"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4", "RUF", "NPY"]
+ignore = [
+  "RUF001", "RUF002", "RUF003",   # Greek/maths symbols in strings, docstrings, comments are intended
+  "E731",                         # small lambdas in numerical helpers
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B011"]
+"tests/mts_b_oracles/**" = ["B011", "E501"]
+"sim/experiments/**" = ["E501"]
+"sim/results.py" = ["E501"]
+"src/mts/viz.py" = ["E501"]
+# Standalone scripts set up sys.path before importing and favour compact dict() literals.
+"scripts/**" = ["E402", "I001", "C408", "RUF005", "B905", "B023"]
+"web/scripts/**" = ["E402", "I001", "C408", "RUF005", "B905", "B023"]
