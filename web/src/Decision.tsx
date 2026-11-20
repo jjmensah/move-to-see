@@ -340,7 +340,7 @@ function Bars({
 }) {
   return (
     <div style={{ display: "grid", gap: 4 }}>
-      <div className="row" style={{ justifyContent: "space-between", fontSize: "var(--step--1)" }}>
+      <div className="row" style={{ justifyContent: "space-between", fontSize: 14.5 }}>
         <span style={{ fontWeight: strong ? 650 : 400 }}>{label}</span>
         <b className="num" style={{ fontWeight: strong ? 600 : 500 }}>
           {value >= 0 ? "" : "−"}

@@ -294,7 +294,7 @@ function Slider({
 }) {
   return (
     <label className="stack" style={{ gap: 2 }}>
-      <span className="row" style={{ justifyContent: "space-between", fontSize: "var(--step--1)" }}>
+      <span className="row" style={{ justifyContent: "space-between", fontSize: 14.5 }}>
         <span>{label}</span>
         <span>
           <b className="num">{value}</b>
