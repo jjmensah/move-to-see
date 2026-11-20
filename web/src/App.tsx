@@ -254,7 +254,7 @@ export default function App() {
               <h2 id="sensor-title">A target you can see is not always one you can measure</h2>
               <p>
                 The LiDAR measures range from the phase of an amplitude-modulated laser. A dark target returns little
-                light; fog absorbs it on the way out and back, and sunlight adds noise that raises the detection
+                light; fog attenuates it on the way out and back, and sunlight adds noise that raises the detection
                 threshold. These curves come straight from the sensor model the robot plans with.
               </p>
             </div>
