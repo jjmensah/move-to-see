@@ -16,7 +16,7 @@ import { ellipse } from "./lib/geometry";
 // ------------------------------------------
 // Pixels per metre in the view box, and the margin around the yard.
 export const PX = 56; // pixels per metre in the viewBox
-const PAD = 26;
+const PAD = 36;
 
 // ------------------------------------------
 // Frame
@@ -76,14 +76,14 @@ export function YardBase({ world, f, showRoute = true }: { world: World; f: Fram
       {ticksX
         .filter(x => x % 2 === 0)
         .map(x => (
-          <text key={`tx${x}`} x={f.sx(x)} y={f.sy(y0) + 15} textAnchor="middle">
+          <text key={`tx${x}`} x={f.sx(x)} y={f.sy(y0) + 8} textAnchor="middle" dominantBaseline="hanging">
             {x} m
           </text>
         ))}
       {ticksY
         .filter(y => y % 2 === 0 && y > y0)
         .map(y => (
-          <text key={`ty${y}`} x={f.sx(x0) - 6} y={f.sy(y) + 3} textAnchor="end">
+          <text key={`ty${y}`} x={f.sx(x0) - 8} y={f.sy(y)} textAnchor="end" dominantBaseline="central">
             {y}
           </text>
         ))}

@@ -720,6 +720,12 @@ input[type="range"] {
   font-size: 10px;
   fill: var(--faint);
 }
+@media (max-width: 560px) {
+  .yard > svg text {
+    font-size: 24px;
+    fill: var(--soft);
+  }
+}
 .scrub {
   display: grid;
   grid-template-columns: auto auto minmax(0, 1fr) auto;
