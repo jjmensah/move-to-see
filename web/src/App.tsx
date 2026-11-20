@@ -7,11 +7,14 @@
 import { useCallback, useEffect, useState } from "react";
 import Replay from "./Replay";
 import Sensor from "./Sensor";
+import Decision from "./Decision";
 import ThemeToggle from "./ThemeToggle";
 import {
   CONDS,
   load,
+  replayPath,
   type Cond,
+  type Replay as ReplayData,
   type Results as ResultsData,
   type World,
 } from "./data";
@@ -43,6 +46,7 @@ export default function App() {
   const [failed, setFailed] = useState(false);
   const [sel, setSel] = useState(readUrl);
   const [playSignal] = useState(0);
+  const [decisionTruth, setDecisionTruth] = useState<number[] | null>(null);
 
   useEffect(() => {
     Promise.all([load<World>("world.json"), load<ResultsData>("results.json")])
@@ -51,6 +55,10 @@ export default function App() {
         setResults(r);
       })
       .catch(() => setFailed(true));
+    // The decision section shows fog trial 0; its true target comes from that trial's replay.
+    load<ReplayData>(replayPath("C2", 0))
+      .then(d => setDecisionTruth(d.qTrue))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -91,6 +99,7 @@ export default function App() {
             <nav aria-label="Sections">
               <a href="#replay">Replay</a>
               <a href="#sensor">Sensor</a>
+              <a href="#decision">Decision</a>
             </nav>
             <ThemeToggle />
           </div>
@@ -157,6 +166,20 @@ export default function App() {
           </div>
         </section>
 
+        <section id="decision" className="section" aria-labelledby="decision-title">
+          <div className="wrap">
+            <div className="section-head">
+              <span className="kicker">The next view</span>
+              <h2 id="decision-title">Why drive there?</h2>
+              <p>
+                Every half second the planner weighs a lattice of reachable viewpoints: how much it expects to learn
+                about the target there, minus a cost for the time it takes to drive. Step through three moments of one
+                fog trial and click any viewpoint to see its score.
+              </p>
+            </div>
+            <Decision world={world} qTrue={decisionTruth} />
+          </div>
+        </section>
 
 
 
