@@ -57,5 +57,5 @@ The data is committed, so the deployment does not need Python.
 ## Stack
 
 React, TypeScript and Vite. Charts are hand-drawn SVG using `d3-scale` and `d3-shape`. The page is set in Hanken
-Grotesk with Kalam for handwritten accents and Geist Mono for numbers, all bundled locally, on a coral, ink and paper
+Grotesk with Kalam for handwritten accents and Geist Mono for numbers, all bundled locally, on a laser-teal, ink and paper
 palette with a dark theme.
