@@ -523,9 +523,58 @@ code {
 }
 
 /* ------------------------------------------
-   Controls
+   Buttons and controls
    ------------------------------------------
-   Segmented buttons, selects, sliders and buttons. */
+   Ink and ghost pill buttons, chip groups, selects and sliders. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 12px 28px -14px rgb(60 10 20 / 0.6);
+  transition: transform 0.3s var(--ease);
+}
+.button:hover {
+  transform: translateY(-1px);
+}
+.button:active {
+  transform: scale(0.98);
+}
+.button.lg {
+  height: 52px;
+  padding: 0 26px;
+  font-size: 16px;
+}
+.button.ghost {
+  background: rgb(255 255 255 / 0.22);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px rgb(27 18 20 / 0.16);
+}
+.band.paper .button.ghost,
+.panel .button.ghost,
+.plot .button.ghost,
+.stage .button.ghost {
+  background: var(--paper-2);
+}
+.button.icon {
+  width: 44px;
+  padding: 0;
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -533,107 +582,82 @@ code {
   align-items: center;
 }
 .segmented {
-  width: fit-content;
-  max-width: 100%;
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 3px;
-  padding: 3px;
-  border-radius: 999px;
-  background: var(--glass-chrome);
-  border: 1px solid var(--rule);
+  gap: 6px;
+  max-width: 100%;
 }
 .segmented button {
-  border: 0;
-  background: none;
-  padding: 7px 13px;
-  min-height: 36px;
+  height: 36px;
+  padding: 0 14px;
   border-radius: 999px;
+  border: 0;
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: var(--step--1);
-  color: var(--soft);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
 }
 .segmented button:hover {
-  color: var(--ink);
+  box-shadow: 0 0 0 1px var(--rule);
 }
 .segmented button[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--canvas);
+  background: color-mix(in srgb, var(--coral) 22%, var(--surface));
+  box-shadow: 0 0 0 1.5px var(--coral-lo);
 }
 .field {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: var(--step--1);
-  color: var(--soft);
+  font-size: 14px;
+  color: var(--ink-2);
 }
 select {
   appearance: none;
-  border: 1px solid var(--rule);
+  height: 36px;
+  padding: 0 32px 0 14px;
+  border: 0;
+  border-radius: 999px;
   background: var(--surface)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23808a83' stroke-width='1.5'/%3E%3C/svg%3E")
-    no-repeat right 10px center;
-  border-radius: 10px;
-  padding: 7px 30px 7px 11px;
-  min-height: 36px;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23897174' stroke-width='1.5'/%3E%3C/svg%3E")
+    no-repeat right 12px center;
+  box-shadow: 0 0 0 1px var(--line);
   color: var(--ink);
   cursor: pointer;
 }
 input[type="range"] {
   width: 100%;
   margin: 0;
-  accent-color: var(--accent);
   height: 28px;
+  accent-color: var(--coral-lo);
   cursor: pointer;
-}
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: var(--canvas);
-  border-radius: 999px;
-  padding: 7px 16px;
-  min-height: 36px;
-  cursor: pointer;
-  font-size: var(--step--1);
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.button.ghost {
-  background: none;
-  color: var(--ink);
-  border-color: var(--rule);
-}
-.button:hover {
-  color: var(--canvas);
-  opacity: 0.9;
-}
-.button.ghost:hover {
-  color: var(--ink);
-  background: var(--surface);
-  border-color: var(--ink);
-}
-.button.icon {
-  width: 40px;
-  padding: 0;
 }
 .check {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: var(--step--1);
+  font-size: 14px;
   cursor: pointer;
   user-select: none;
 }
 .check input {
-  accent-color: var(--accent);
   width: 16px;
   height: 16px;
   margin: 0;
+  accent-color: var(--ink);
+}
+.plain {
+  all: unset;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.plain:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
 }
 
 /* ------------------------------------------
