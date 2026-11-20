@@ -383,6 +383,10 @@ code {
 .band.paper .plot {
   background: var(--cream);
 }
+.panel :is(.panel, .plot),
+.stage :is(.panel, .plot) {
+  box-shadow: 0 0 0 1px var(--line);
+}
 .panel,
 .plot,
 .stage,
