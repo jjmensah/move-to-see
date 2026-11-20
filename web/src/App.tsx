@@ -3,14 +3,22 @@
 // ==========================================================
 // The page. Sections are added one at a time as they are built.
 
+import ThemeToggle from "./ThemeToggle";
+
 // ------------------------------------------
 // App
 // ------------------------------------------
-// Placeholder page while the site is scaffolded.
+// Top bar with the brand and the theme switch.
 export default function App() {
   return (
-    <main className="wrap">
-      <h1>Move to See</h1>
-    </main>
+    <div className="bar">
+      <header className="wrap topbar">
+        <a className="brand" href="#replay">
+          <img src="./icon.svg" alt="" />
+          Move to See
+        </a>
+        <ThemeToggle />
+      </header>
+    </div>
   );
 }
