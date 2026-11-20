@@ -398,8 +398,7 @@ code {
   font-size: 28px;
 }
 .grid-2,
-.grid-side,
-.grid-side-l {
+.grid-side {
   display: grid;
   gap: 20px;
   align-items: start;
@@ -410,13 +409,39 @@ code {
 .grid-side {
   grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
 }
-.grid-side-l {
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-}
 @media (max-width: 920px) {
   .grid-2,
-  .grid-side,
-  .grid-side-l {
+  .grid-side {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.sensor-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.sensor-controls {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: 20px 36px;
+  align-items: start;
+}
+.stats.sensor-stats {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 1200px) {
+  .sensor-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stats.sensor-stats {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 920px) {
+  .sensor-layout,
+  .sensor-controls {
     grid-template-columns: minmax(0, 1fr);
   }
 }

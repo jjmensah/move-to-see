@@ -181,9 +181,9 @@ export default function Sensor({ world, replayCondition }: { world: World; repla
   });
 
   return (
-    <div className="grid-side-l">
-      <div className="panel stack">
-        <div>
+    <div className="sensor-layout">
+      <div className="panel sensor-controls">
+        <div className="stack">
           <div className="chart-title">Conditions</div>
           <div className="chart-sub">Start from one of the four tested conditions, then move the sliders.</div>
           <div className="segmented" role="group" aria-label="Tested condition">
@@ -193,37 +193,39 @@ export default function Sensor({ world, replayCondition }: { world: World; repla
               </button>
             ))}
           </div>
+          {replayCondition !== active && (
+            <button type="button" className="button ghost" onClick={() => setP(preset(replayCondition, grid))}>
+              Use the replay's condition ({world.conditions[replayCondition].label})
+            </button>
+          )}
         </div>
-        <Slider
-          label="Target reflectivity"
-          value={grid.rho[p.rho].toFixed(2)}
-          hint={p.rho === 0 ? "black" : p.rho === grid.rho.length - 1 ? "white" : ""}
-          max={grid.rho.length - 1}
-          v={p.rho}
-          onChange={v => setP({ ...p, rho: v })}
-        />
-        <Slider
-          label="Visibility (fog)"
-          value={visLabel(grid.visibilityM[p.vis])}
-          hint={`extinction ${grid.extinctionPerM[p.vis].toFixed(3)} /m`}
-          max={grid.visibilityM.length - 1}
-          v={p.vis}
-          onChange={v => setP({ ...p, vis: v })}
-        />
-        <Slider
-          label="Sunlight"
-          value={`${grid.sun[p.sun]} sun`}
-          hint={p.sun === 0 ? "none" : ""}
-          max={grid.sun.length - 1}
-          v={p.sun}
-          onChange={v => setP({ ...p, sun: v })}
-        />
-        {replayCondition !== active && (
-          <button type="button" className="button ghost" onClick={() => setP(preset(replayCondition, grid))}>
-            Use the replay's condition ({world.conditions[replayCondition].label})
-          </button>
-        )}
-        <div className="stats" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="stack">
+          <Slider
+            label="Target reflectivity"
+            value={grid.rho[p.rho].toFixed(2)}
+            hint={p.rho === 0 ? "black" : p.rho === grid.rho.length - 1 ? "white" : ""}
+            max={grid.rho.length - 1}
+            v={p.rho}
+            onChange={v => setP({ ...p, rho: v })}
+          />
+          <Slider
+            label="Visibility (fog)"
+            value={visLabel(grid.visibilityM[p.vis])}
+            hint={`extinction ${grid.extinctionPerM[p.vis].toFixed(3)} /m`}
+            max={grid.visibilityM.length - 1}
+            v={p.vis}
+            onChange={v => setP({ ...p, vis: v })}
+          />
+          <Slider
+            label="Sunlight"
+            value={`${grid.sun[p.sun]} sun`}
+            hint={p.sun === 0 ? "none" : ""}
+            max={grid.sun.length - 1}
+            v={p.sun}
+            onChange={v => setP({ ...p, sun: v })}
+          />
+        </div>
+        <div className="stats sensor-stats">
           <div className="stat" style={{ ["--c" as string]: "var(--accent)" }}>
             <b className="num">{curve.r50M <= lastR ? `${curve.r50M.toFixed(2)} m` : `> ${lastR} m`}</b>
             <span>
@@ -238,36 +240,34 @@ export default function Sensor({ world, replayCondition }: { world: World; repla
           </div>
         </div>
       </div>
-      <div className="stack">
-        <div className="plot">
-          <div className="chart-title">Will a beam detect the target?</div>
-          <div className="chart-sub">
-            Probability that one beam's return from a facing target, with nothing in the way, crosses the detection
-            threshold. Dashed grey: a white target in clear air.
-          </div>
-          <Chart grid={grid} curve={curve} refCurve={ref} kind="pd" cursor={cursor} setCursor={setCursor} />
+      <div className="plot">
+        <div className="chart-title">Will a beam detect the target?</div>
+        <div className="chart-sub">
+          Probability that one beam's return from a facing target, with nothing in the way, crosses the detection
+          threshold. Dashed grey: a white target in clear air.
         </div>
-        <div className="plot">
-          <div className="chart-title">How noisy is the range it reports?</div>
-          <div className="chart-sub">
-            Predicted range-noise scale, in mm, before any phase-unwrapping errors; drawn where detection probability is
-            at least 0.5, and least reliable close to that threshold.
-          </div>
-          <Chart grid={grid} curve={curve} refCurve={ref} kind="sigma" cursor={cursor} setCursor={setCursor} />
-          <input
-            type="range"
-            min={0}
-            max={grid.rangeM.length - 1}
-            value={cursor}
-            aria-label="Range"
-            aria-valuetext={`${r.toFixed(2)} m: detection probability ${curve.pd[cursor].toFixed(2)}, range noise ${(curve.sigmaM[cursor] * 1000).toFixed(1)} mm`}
-            onChange={e => setCursor(Number(e.target.value))}
-          />
-          <p className="small muted">
-            At {r.toFixed(2)} m: detection probability <span className="num">{curve.pd[cursor].toFixed(3)}</span>, range
-            noise <span className="num">{(curve.sigmaM[cursor] * 1000).toFixed(1)} mm</span>.
-          </p>
+        <Chart grid={grid} curve={curve} refCurve={ref} kind="pd" cursor={cursor} setCursor={setCursor} />
+      </div>
+      <div className="plot">
+        <div className="chart-title">How noisy is the range it reports?</div>
+        <div className="chart-sub">
+          Predicted range-noise scale, in mm, before any phase-unwrapping errors; drawn where detection probability is
+          at least 0.5, and least reliable close to that threshold.
         </div>
+        <Chart grid={grid} curve={curve} refCurve={ref} kind="sigma" cursor={cursor} setCursor={setCursor} />
+        <input
+          type="range"
+          min={0}
+          max={grid.rangeM.length - 1}
+          value={cursor}
+          aria-label="Range"
+          aria-valuetext={`${r.toFixed(2)} m: detection probability ${curve.pd[cursor].toFixed(2)}, range noise ${(curve.sigmaM[cursor] * 1000).toFixed(1)} mm`}
+          onChange={e => setCursor(Number(e.target.value))}
+        />
+        <p className="small muted">
+          At {r.toFixed(2)} m: detection probability <span className="num">{curve.pd[cursor].toFixed(3)}</span>, range
+          noise <span className="num">{(curve.sigmaM[cursor] * 1000).toFixed(1)} mm</span>.
+        </p>
       </div>
     </div>
   );
