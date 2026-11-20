@@ -423,7 +423,7 @@ code {
    Centred display title with a handwritten line, the calls to action, the
    headline numbers and the replay stage underneath. */
 .hero {
-  padding: clamp(130px, 16vw, 170px) 0 clamp(80px, 10vw, 120px);
+  padding: clamp(130px, 16vw, 170px) 0 clamp(24px, 4vw, 48px);
   text-align: center;
 }
 .hero h1 {
@@ -534,6 +534,9 @@ code {
   .stage-wrap {
     margin-top: 64px;
   }
+}
+.stage-wrap .fine {
+  text-align: center;
 }
 .stage {
   background: var(--paper);
