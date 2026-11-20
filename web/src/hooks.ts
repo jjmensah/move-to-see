@@ -49,3 +49,21 @@ export function useReveal(ready: boolean) {
     return () => observer.disconnect();
   }, [ready]);
 }
+
+// ------------------------------------------
+// useNarrow
+// ------------------------------------------
+// True while the viewport is at most `max` pixels wide, so a chart can switch
+// to a compact layout instead of scrolling sideways on a phone.
+export function useNarrow(max = 560): boolean {
+  const query = `(max-width: ${max}px)`;
+  const [narrow, setNarrow] = useState(() => typeof window !== "undefined" && window.matchMedia(query).matches);
+  useEffect(() => {
+    const list = window.matchMedia(query);
+    const update = () => setNarrow(list.matches);
+    update();
+    list.addEventListener("change", update);
+    return () => list.removeEventListener("change", update);
+  }, [query]);
+  return narrow;
+}
