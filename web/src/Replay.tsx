@@ -66,7 +66,7 @@ function ErrorInset({
 }) {
   const W = 360,
     H = 150,
-    m = { l: 44, r: 10, t: 10, b: 24 };
+    m = { l: 52, r: 18, t: 10, b: 24 };
   const x = scaleLinear()
     .domain([0, world.steps * world.dt])
     .range([m.l, W - m.r]);
@@ -80,7 +80,7 @@ function ErrorInset({
       .y(e => y(Math.max(e, 0.001)))(err.slice(0, step + 1)) ?? "";
   return (
     <svg
-      className="chart"
+      className="chart error-chart"
       viewBox={`0 0 ${W} ${H}`}
       role="img"
       aria-label="Position error against time for each controller, log scale"
