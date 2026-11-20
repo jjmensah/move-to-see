@@ -24,7 +24,8 @@ import {
 // ------------------------------------------
 // Links
 // ------------------------------------------
-// The repository.
+// Portfolio and repository.
+const SITE = "https://josephjuniormensah.com";
 const REPO = "https://github.com/jjmensah/move-to-see";
 
 // ------------------------------------------
@@ -117,6 +118,7 @@ export default function App() {
               <a href="#decision">Decision</a>
               <a href="#results">Results</a>
               <a href="#evidence">Evidence</a>
+              <a href="#limits">Limits</a>
             </nav>
             <ThemeToggle />
           </div>
@@ -227,8 +229,68 @@ export default function App() {
           </div>
         </section>
 
+        <section id="limits" className="section" aria-labelledby="limits-title">
+          <div className="wrap grid-2" style={{ alignItems: "start" }}>
+            <div className="section-head" style={{ marginBottom: 0 }}>
+              <span className="kicker">Read the results</span>
+              <h2 id="limits-title">What this shows, and what it does not</h2>
+              <p>
+                These are simulation results for one sensor model in one known yard. The model is carefully checked
+                against a waveform-level simulation of the same sensor, but no hardware was involved.
+              </p>
+              <div className="row" style={{ marginTop: 8 }}>
+                <a className="button" href={REPO}>
+                  Source code and data
+                </a>
+                <a className="button ghost" href={`${REPO}/blob/main/docs/verification/results.md`}>
+                  Full results
+                </a>
+              </div>
+            </div>
+            <div className="panel">
+              <ul className="caveats">
+                <li>
+                  <b>The robot knows the map.</b> Its own position, the obstacles, the terrain, the weather and the
+                  target's size and reflectivity are known; only the target's position is unknown.
+                </li>
+                <li>
+                  <b>One stationary box.</b> The target does not move and is a box, like everything else in the yard.
+                </li>
+                <li>
+                  <b>The physics-blind planner is deliberately mis-specified.</b> It shows the cost of ignoring the
+                  physics, not the best a simpler planner could do.
+                </li>
+                <li>
+                  <b>One fixed route.</b> A different inspection loop could do better or worse; in sunlight the fixed
+                  route was faster in{" "}
+                  {results.comparisons.find(c => c.condition === "C3" && c.against === "fixed")?.infoSlower ?? "some"}{" "}
+                  of 40 pairs.
+                </li>
+                <li>
+                  <b>Fog dims, it does not glow.</b> The fog model attenuates the beam but leaves out backscatter.
+                </li>
+                <li>
+                  <b>Time is simulated time.</b> The time scores count robot seconds, not computation. On a laptop the
+                  information-driven controller took on average 0.1–0.4 s to plan and 0.7–3.2 s to update its belief per
+                  half-second step, depending on the condition, so this implementation does not yet run in real time.
+                </li>
+                <li>
+                  <b>The ellipses are summaries.</b> They show two standard deviations of the belief's horizontal
+                  spread, not a calibrated credible region.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </main>
 
+      <footer className="wrap footer">
+        <p>
+          Designed, built and verified by <a href={SITE}>Joseph Junior Mensah</a> as the final project for ECE 4240
+          (Robot Perception) at Cornell, building on the midterm AMCW LiDAR simulator. <a href={REPO}>The repository</a>{" "}
+          has the code, the registered experiments and every result shown here.
+        </p>
+      </footer>
     </>
   );
 }
