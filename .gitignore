@@ -1,0 +1,14 @@
+.venv/
+sim/out/
+__pycache__/
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+*.egg-info/
+.DS_Store
+node_modules/
+node_modules/
+web/dist/
+*.tsbuildinfo
+web/test-results/
+web/playwright-report/
