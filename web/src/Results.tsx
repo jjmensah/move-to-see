@@ -59,7 +59,7 @@ function Triplets({
       viewBox="0 0 640 330"
       role="group"
       aria-labelledby={`${id}-title ${id}-desc`}
-      style={{ maxWidth: 820, marginInline: "auto" }}
+      style={{ maxWidth: 1080, marginInline: "auto" }}
     >
       <title id={`${id}-title`}>Paired time scores by controller</title>
       <desc id={`${id}-desc`}>
