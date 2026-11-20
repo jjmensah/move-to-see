@@ -9,6 +9,7 @@ import Replay from "./Replay";
 import Sensor from "./Sensor";
 import Decision from "./Decision";
 import Results from "./Results";
+import Evidence from "./Evidence";
 import ThemeToggle from "./ThemeToggle";
 import {
   CONDS,
@@ -115,6 +116,7 @@ export default function App() {
               <a href="#sensor">Sensor</a>
               <a href="#decision">Decision</a>
               <a href="#results">Results</a>
+              <a href="#evidence">Evidence</a>
             </nav>
             <ThemeToggle />
           </div>
@@ -210,6 +212,20 @@ export default function App() {
           </div>
         </section>
 
+        <section id="evidence" className="section" aria-labelledby="evidence-title">
+          <div className="wrap">
+            <div className="section-head">
+              <span className="kicker">The checks</span>
+              <h2 id="evidence-title">Decided before the runs, reported as they came out</h2>
+              <p>
+                Each experiment's hypothesis, sample size and seed, and its pass criteria apart from the documented
+                changes below, were written into a registry before its first full run; tuning used separate pilot seeds.
+                Here is every registered check and its outcome.
+              </p>
+            </div>
+            <Evidence />
+          </div>
+        </section>
 
       </main>
 
