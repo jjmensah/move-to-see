@@ -26,6 +26,7 @@
   --ink: #1b1214;
   --ink-2: #4a3236;
   --soft: #6b5458;
+  --soft-card: #6b5458;
   --faint: #9a8589;
   --paper: #fff7f2;
   --paper-2: #fbede6;
@@ -69,6 +70,7 @@
   --ink: #fbede6;
   --ink-2: #e2cdc6;
   --soft: #c2aaa3;
+  --soft-card: #c2aaa3;
   --faint: #93807b;
   --paper: #1a1113;
   --paper-2: #241719;
@@ -354,6 +356,11 @@ code {
 .band.paper .kicker {
   color: var(--accent);
 }
+.band.coral,
+.hero {
+  --soft: var(--ink-2);
+  --faint: var(--ink-2);
+}
 
 /* ------------------------------------------
    Cards
@@ -370,6 +377,21 @@ code {
 .band.paper .panel,
 .band.paper .plot {
   background: var(--cream);
+}
+.panel,
+.plot,
+.stage,
+.step,
+.ledger details,
+.faq details {
+  --soft: var(--soft-card);
+  --faint: #9a8589;
+}
+:root[data-theme="dark"] :is(.panel, .plot, .stage, .step, .ledger details, .faq details) {
+  --faint: #93807b;
+}
+.panel .stat b {
+  font-size: 28px;
 }
 .grid-2,
 .grid-side,
