@@ -361,6 +361,10 @@ code {
   --soft: var(--ink-2);
   --faint: var(--ink-2);
 }
+/* On light coral the secondary ink is darkened to keep 4.5:1. */
+:root:not([data-theme="dark"]) :is(.band.coral, .hero, .final) {
+  --ink-2: #33201f;
+}
 
 /* ------------------------------------------
    Cards
@@ -431,7 +435,7 @@ code {
   margin: 0 auto 28px;
 }
 .hero h1 .hand {
-  color: var(--cream);
+  color: #ffffff;
   font-size: 1.08em;
   margin-top: 0.06em;
 }
@@ -1079,7 +1083,7 @@ table.data .num {
   margin-bottom: 22px;
 }
 .final h2 .hand {
-  color: var(--cream);
+  color: #ffffff;
 }
 :root[data-theme="dark"] .final h2 .hand {
   color: var(--coral-lo);
