@@ -7,11 +7,10 @@
 /* ------------------------------------------
    Fonts
    ------------------------------------------
-   Bundled locally: Space Grotesk, IBM Plex Sans and IBM Plex Mono. */
-@import "@fontsource-variable/space-grotesk";
-@import "@fontsource-variable/ibm-plex-sans";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
+   Bundled locally: Hanken Grotesk, Kalam for handwritten accents and Geist Mono. */
+@import "@fontsource-variable/hanken-grotesk";
+@import "@fontsource/kalam/400.css";
+@import "@fontsource-variable/geist-mono";
 
 /* ------------------------------------------
    Tokens
@@ -48,9 +47,10 @@
   --glow-2: rgb(117 84 164 / 0.06);
   --glow-3: rgb(177 67 54 / 0.05);
 
-  --display: "Space Grotesk Variable", system-ui, sans-serif;
-  --text: "IBM Plex Sans Variable", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --display: "Hanken Grotesk Variable", -apple-system, "Helvetica Neue", sans-serif;
+  --text: "Hanken Grotesk Variable", -apple-system, "Helvetica Neue", sans-serif;
+  --hand: "Kalam", cursive;
+  --mono: "Geist Mono Variable", ui-monospace, Menlo, monospace;
 
   --step--1: 0.8125rem;
   --step-0: 1rem;
