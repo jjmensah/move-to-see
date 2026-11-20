@@ -202,10 +202,10 @@ export default function App() {
           </div>
         </section>
 
-        <section id="sensor" className="section" aria-labelledby="sensor-title">
+        <section id="sensor" className="band paper" aria-labelledby="sensor-title">
           <div className="wrap">
-            <div className="section-head">
-              <span className="kicker">The measurement</span>
+            <div className="section-head reveal">
+              <span className="kicker">the measurement</span>
               <h2 id="sensor-title">A target you can see is not always one you can measure</h2>
               <p>
                 The LiDAR measures range from the phase of an amplitude-modulated laser. A dark target returns little
@@ -217,10 +217,10 @@ export default function App() {
           </div>
         </section>
 
-        <section id="decision" className="section" aria-labelledby="decision-title">
+        <section id="decision" className="band coral" aria-labelledby="decision-title">
           <div className="wrap">
-            <div className="section-head">
-              <span className="kicker">The next view</span>
+            <div className="section-head reveal">
+              <span className="kicker">the next view</span>
               <h2 id="decision-title">Why drive there?</h2>
               <p>
                 Every half second the planner weighs a lattice of reachable viewpoints: how much it expects to learn
@@ -232,10 +232,10 @@ export default function App() {
           </div>
         </section>
 
-        <section id="results" className="section" aria-labelledby="results-title">
+        <section id="results" className="band paper" aria-labelledby="results-title">
           <div className="wrap">
-            <div className="section-head">
-              <span className="kicker">The paired trials</span>
+            <div className="section-head reveal">
+              <span className="kicker">the paired trials</span>
               <h2 id="results-title">Same target, same noise, three ways to search</h2>
               <p>
                 In each of 40 trials per condition the three controllers face the same target position and the same
@@ -246,10 +246,10 @@ export default function App() {
           </div>
         </section>
 
-        <section id="evidence" className="section" aria-labelledby="evidence-title">
+        <section id="evidence" className="band coral" aria-labelledby="evidence-title">
           <div className="wrap">
-            <div className="section-head">
-              <span className="kicker">The checks</span>
+            <div className="section-head reveal">
+              <span className="kicker">the checks</span>
               <h2 id="evidence-title">Decided before the runs, reported as they came out</h2>
               <p>
                 Each experiment's hypothesis, sample size and seed, and its pass criteria apart from the documented
@@ -261,10 +261,10 @@ export default function App() {
           </div>
         </section>
 
-        <section id="limits" className="section" aria-labelledby="limits-title">
+        <section id="limits" className="band paper" aria-labelledby="limits-title">
           <div className="wrap grid-2" style={{ alignItems: "start" }}>
-            <div className="section-head" style={{ marginBottom: 0 }}>
-              <span className="kicker">Read the results</span>
+            <div className="section-head reveal" style={{ marginBottom: 0 }}>
+              <span className="kicker">read the results</span>
               <h2 id="limits-title">What this shows, and what it does not</h2>
               <p>
                 These are simulation results for one sensor model in one known yard. The model is carefully checked

@@ -316,63 +316,76 @@ code {
 }
 
 /* ------------------------------------------
-   Sections
+   Bands
    ------------------------------------------
-   Section rhythm, headings, panels and grids. */
-.section {
-  padding-block: clamp(56px, 9vw, 104px);
-  border-top: 1px solid var(--rule);
+   Coral and paper bands alternate down the page under large, tight headings. */
+.band {
+  padding-block: clamp(80px, 11vw, 130px);
+}
+.band.coral {
+  background: var(--coral);
+}
+.band.paper {
+  background: var(--paper);
 }
 .section-head {
   display: grid;
-  gap: 14px;
-  max-width: 760px;
-  margin-bottom: clamp(26px, 4vw, 40px);
+  gap: 18px;
+  max-width: 820px;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.section-head h2 {
+  font-size: clamp(40px, 5.6vw, 76px);
 }
 .section-head p {
-  color: var(--soft);
-  font-size: 1.06rem;
+  font-size: clamp(17px, 1.6vw, 19px);
+  color: var(--ink-2);
 }
 .kicker {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--hand);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--ink);
+  display: inline-block;
+  transform: rotate(-3deg);
+  transform-origin: left bottom;
+  width: fit-content;
+}
+.band.paper .kicker {
   color: var(--accent);
 }
 
-.panel {
-  background: var(--glass);
-  border: 1px solid var(--glass-edge);
-  border-radius: 14px;
-  padding: clamp(16px, 2.6vw, 24px);
-  box-shadow: var(--glass-shine), var(--shadow);
-  min-width: 0;
-}
+/* ------------------------------------------
+   Cards
+   ------------------------------------------
+   Rounded paper cards for panels and plots, and the grids that hold them. */
+.panel,
 .plot {
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 14px;
-  padding: clamp(10px, 2vw, 16px);
+  border-radius: 24px;
+  padding: clamp(16px, 2.4vw, 24px);
+  box-shadow: var(--shadow-card);
   min-width: 0;
 }
-.grid-2 {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(16px, 3vw, 28px);
+.band.paper .panel,
+.band.paper .plot {
+  background: var(--cream);
 }
-.grid-side {
-  display: grid;
-  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-  gap: clamp(16px, 3vw, 28px);
-  align-items: start;
-}
+.grid-2,
+.grid-side,
 .grid-side-l {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: clamp(16px, 3vw, 28px);
+  gap: 20px;
   align-items: start;
+}
+.grid-2 {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.grid-side {
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+}
+.grid-side-l {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
 }
 @media (max-width: 920px) {
   .grid-2,
