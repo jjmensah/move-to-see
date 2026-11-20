@@ -1,8 +1,8 @@
 /* ==========================================================
    web/src/styles.css
    ==========================================================
-   Coral, ink and paper: warm bands that alternate down the page, rounded
-   paper cards, a tight grotesk for display type and a handwritten accent.
+   Laser teal, ink and paper: bands in the colour of a LiDAR scan alternate
+   down the page, with rounded paper cards, a tight grotesk for display type and a handwritten accent.
    Chart colours keep 3:1 contrast and text 4.5:1 in both themes. */
 
 /* ------------------------------------------
@@ -20,32 +20,32 @@
    yard, charts) live here too, so every chart follows the theme. */
 :root {
   color-scheme: light;
-  --brand: #ef6a6e;
-  --brand-lo: #d4505b;
-  --brand-hi: #f7a3a0;
-  --ink: #1b1214;
-  --ink-2: #4a3236;
-  --soft: #6b5458;
-  --soft-card: #6b5458;
-  --faint: #9a8589;
-  --paper: #fff7f2;
-  --paper-2: #fbede6;
-  --cream: #fffbf8;
-  --surface: #fffdfb;
-  --line: rgb(27 18 20 / 0.1);
-  --rule: rgb(27 18 20 / 0.12);
-  --grid: rgb(27 18 20 / 0.07);
-  --canvas: #ef6a6e;
-  --accent: #c2414f;
+  --brand: #1fa39a;
+  --brand-lo: #0f766e;
+  --brand-hi: #7fd3cb;
+  --ink: #0e1a1c;
+  --ink-2: #2c3f40;
+  --soft: #5b6b6a;
+  --soft-card: #5b6b6a;
+  --faint: #6f7f7d;
+  --paper: #f3faf8;
+  --paper-2: #e3f2ef;
+  --cream: #fbfefd;
+  --surface: #fdfffe;
+  --line: rgb(14 26 28 / 0.1);
+  --rule: rgb(14 26 28 / 0.12);
+  --grid: rgb(14 26 28 / 0.07);
+  --canvas: #1fa39a;
+  --accent: #0f766e;
 
   --info: #1f5fd1;
   --blind: #b86c00;
-  --fixed: #1b1214;
-  --truth: #1b1214;
-  --obstacle: #f3dcd3;
-  --obstacle-edge: #c9a99f;
+  --fixed: #0e1a1c;
+  --truth: #0e1a1c;
+  --obstacle: #d6e7e3;
+  --obstacle-edge: #9bb7b1;
   --rough: #c79a5c;
-  --prior: #8a6f73;
+  --prior: #6b807d;
   --good: #1f5fd1;
   --bad: #c2414f;
 
@@ -54,45 +54,45 @@
   --mono: "Geist Mono Variable", ui-monospace, Menlo, monospace;
   --hand: "Kalam", cursive;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --shadow-card: 0 0 0 1px rgb(27 18 20 / 0.06), 0 30px 60px -36px rgb(90 20 30 / 0.45);
+  --shadow-card: 0 0 0 1px rgb(14 26 28 / 0.06), 0 30px 60px -36px rgb(6 60 56 / 0.4);
   --gutter: clamp(16px, 4vw, 32px);
 }
 
 /* ------------------------------------------
    Dark theme
    ------------------------------------------
-   Deep wine bands with coral accents; cards sit a shade lighter than the page. */
+   Deep teal bands with bright teal accents; cards sit a shade lighter than the page. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --brand: #3a1c21;
-  --brand-lo: #ff8b8e;
-  --brand-hi: #ffb3b0;
-  --ink: #fbede6;
-  --ink-2: #e2cdc6;
-  --soft: #c2aaa3;
-  --soft-card: #c2aaa3;
-  --faint: #93807b;
-  --paper: #1a1113;
-  --paper-2: #241719;
-  --cream: #2c1d20;
-  --surface: #221619;
-  --line: rgb(255 240 232 / 0.1);
-  --rule: rgb(255 240 232 / 0.14);
-  --grid: rgb(255 240 232 / 0.07);
-  --canvas: #3a1c21;
-  --accent: #ff8b8e;
+  --brand: #0f3b3a;
+  --brand-lo: #5fd4c6;
+  --brand-hi: #9fe6dd;
+  --ink: #e8f6f3;
+  --ink-2: #c4dcd8;
+  --soft: #9fb8b4;
+  --soft-card: #9fb8b4;
+  --faint: #7e9592;
+  --paper: #0b1718;
+  --paper-2: #112223;
+  --cream: #15292a;
+  --surface: #122526;
+  --line: rgb(232 246 243 / 0.1);
+  --rule: rgb(232 246 243 / 0.14);
+  --grid: rgb(232 246 243 / 0.07);
+  --canvas: #0f3b3a;
+  --accent: #5fd4c6;
 
   --info: #7fa8ff;
   --blind: #f2b04a;
-  --fixed: #fbede6;
-  --truth: #fbede6;
-  --obstacle: #3d2a2d;
-  --obstacle-edge: #6a5054;
+  --fixed: #e8f6f3;
+  --truth: #e8f6f3;
+  --obstacle: #213a3a;
+  --obstacle-edge: #3f5e5c;
   --rough: #a78350;
-  --prior: #b39a9e;
+  --prior: #9ab3af;
   --good: #7fa8ff;
   --bad: #ff8b8e;
-  --shadow-card: 0 0 0 1px rgb(255 240 232 / 0.06), 0 30px 60px -36px rgb(0 0 0 / 0.8);
+  --shadow-card: 0 0 0 1px rgb(232 246 243 / 0.06), 0 30px 60px -36px rgb(0 0 0 / 0.8);
 }
 
 /* ------------------------------------------
@@ -248,7 +248,7 @@ code {
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
   box-shadow:
     0 0 0 1px var(--line),
-    0 8px 24px -14px rgb(60 10 20 / 0.3);
+    0 8px 24px -14px rgb(4 40 38 / 0.3);
 }
 .topbar {
   display: flex;
@@ -320,7 +320,7 @@ code {
 /* ------------------------------------------
    Bands
    ------------------------------------------
-   Coral and paper bands alternate down the page under large, tight headings. */
+   Teal and paper bands alternate down the page under large, tight headings. */
 .band {
   padding-block: clamp(80px, 11vw, 130px);
 }
@@ -361,9 +361,9 @@ code {
   --soft: var(--ink-2);
   --faint: var(--ink-2);
 }
-/* On light coral the secondary ink is darkened to keep 4.5:1. */
+/* On light teal the secondary ink is darkened to keep 4.5:1. */
 :root:not([data-theme="dark"]) :is(.band.brand, .hero, .final, .footer) {
-  --ink-2: #33201f;
+  --ink-2: #16302f;
 }
 
 /* ------------------------------------------
@@ -389,10 +389,10 @@ code {
 .ledger details,
 .faq details {
   --soft: var(--soft-card);
-  --faint: #9a8589;
+  --faint: #6f7f7d;
 }
 :root[data-theme="dark"] :is(.panel, .plot, .stage, .step, .ledger details, .faq details) {
-  --faint: #93807b;
+  --faint: #7e9592;
 }
 .panel .stat b {
   font-size: 28px;
@@ -547,8 +547,8 @@ code {
   border-radius: 28px;
   padding: clamp(12px, 2vw, 22px);
   box-shadow:
-    0 0 0 1px rgb(27 18 20 / 0.12),
-    0 50px 90px -40px rgb(70 10 25 / 0.7);
+    0 0 0 1px rgb(14 26 28 / 0.12),
+    0 50px 90px -40px rgb(4 45 42 / 0.6);
 }
 
 /* ------------------------------------------
@@ -571,7 +571,7 @@ code {
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 12px 28px -14px rgb(60 10 20 / 0.6);
+  box-shadow: 0 12px 28px -14px rgb(4 40 38 / 0.55);
   transition: transform 0.3s var(--ease);
 }
 .button:hover {
@@ -588,7 +588,7 @@ code {
 .button.ghost {
   background: rgb(255 255 255 / 0.22);
   color: var(--ink);
-  box-shadow: inset 0 0 0 1px rgb(27 18 20 / 0.16);
+  box-shadow: inset 0 0 0 1px rgb(14 26 28 / 0.16);
 }
 .band.paper .button.ghost,
 .panel .button.ghost,
@@ -652,7 +652,7 @@ select {
   border: 0;
   border-radius: 999px;
   background: var(--surface)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23897174' stroke-width='1.5'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23718684' stroke-width='1.5'/%3E%3C/svg%3E")
     no-repeat right 12px center;
   box-shadow: 0 0 0 1px var(--line);
   color: var(--ink);
