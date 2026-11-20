@@ -1,7 +1,8 @@
 /* ==========================================================
    web/src/styles.css
    ==========================================================
-   Colour tokens for both themes, type, layout and every component.
+   Coral, ink and paper: warm bands that alternate down the page, rounded
+   paper cards, a tight grotesk for display type and a handwritten accent.
    Chart colours keep 3:1 contrast and text 4.5:1 in both themes. */
 
 /* ------------------------------------------
@@ -15,85 +16,81 @@
 /* ------------------------------------------
    Tokens
    ------------------------------------------
-   Light theme colours, type scale and spacing. */
+   Light theme colours, type and motion. Component colours (controllers,
+   yard, charts) live here too, so every chart follows the theme. */
 :root {
   color-scheme: light;
-  --canvas: #f3f5ef;
-  --surface: #ffffff;
-  --ink: #18211c;
-  --soft: #526057;
-  --faint: #8a968e;
-  --rule: #d9dfd6;
-  --grid: #e7ebe4;
-  --accent: #287238;
-  --info: #287238;
-  --blind: #7554a4;
-  --fixed: #b14336;
-  --truth: #18211c;
-  --obstacle: #c9d0c6;
-  --obstacle-edge: #a7b0a4;
-  --rough: #b9a26a;
-  --prior: #6f7c73;
-  --beam: #287238;
-  --good: #287238;
-  --bad: #b14336;
-  --shadow: 0 1px 0 rgb(24 33 28 / 0.05), 0 22px 44px -32px rgb(24 33 28 / 0.55);
+  --coral: #ef6a6e;
+  --coral-lo: #d4505b;
+  --coral-hi: #f7a3a0;
+  --ink: #1b1214;
+  --ink-2: #4a3236;
+  --soft: #6b5458;
+  --faint: #9a8589;
+  --paper: #fff7f2;
+  --paper-2: #fbede6;
+  --cream: #fffbf8;
+  --surface: #fffdfb;
+  --line: rgb(27 18 20 / 0.1);
+  --rule: rgb(27 18 20 / 0.12);
+  --grid: rgb(27 18 20 / 0.07);
+  --canvas: #ef6a6e;
+  --accent: #c2414f;
 
-  --glass: rgb(255 255 255 / 0.9);
-  --glass-chrome: rgb(243 245 239 / 0.82);
-  --glass-edge: rgb(24 33 28 / 0.08);
-  --glass-shine: inset 0 1px 0 rgb(255 255 255 / 0.7);
-  --glow-1: rgb(40 114 56 / 0.07);
-  --glow-2: rgb(117 84 164 / 0.06);
-  --glow-3: rgb(177 67 54 / 0.05);
+  --info: #1f5fd1;
+  --blind: #b86c00;
+  --fixed: #1b1214;
+  --truth: #1b1214;
+  --obstacle: #f3dcd3;
+  --obstacle-edge: #c9a99f;
+  --rough: #c79a5c;
+  --prior: #8a6f73;
+  --good: #1f5fd1;
+  --bad: #c2414f;
 
   --display: "Hanken Grotesk Variable", -apple-system, "Helvetica Neue", sans-serif;
   --text: "Hanken Grotesk Variable", -apple-system, "Helvetica Neue", sans-serif;
-  --hand: "Kalam", cursive;
   --mono: "Geist Mono Variable", ui-monospace, Menlo, monospace;
-
-  --step--1: 0.8125rem;
-  --step-0: 1rem;
-  --step-1: 1.25rem;
-  --step-2: 1.6rem;
-  --step-3: clamp(1.9rem, 1.3rem + 2.2vw, 2.7rem);
-  --step-4: clamp(2.6rem, 1.4rem + 5vw, 4.8rem);
-  --gutter: clamp(16px, 4vw, 40px);
+  --hand: "Kalam", cursive;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-card: 0 0 0 1px rgb(27 18 20 / 0.06), 0 30px 60px -36px rgb(90 20 30 / 0.45);
+  --gutter: clamp(16px, 4vw, 32px);
 }
 
 /* ------------------------------------------
    Dark theme
    ------------------------------------------
-   The same tokens for the dark theme. */
+   Deep wine bands with coral accents; cards sit a shade lighter than the page. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --canvas: #101612;
-  --surface: #1b241e;
-  --ink: #eef4eb;
-  --soft: #b0beb2;
-  --faint: #7d8b81;
-  --rule: #2c3830;
-  --grid: #222c25;
-  --accent: #9cdb77;
-  --info: #9cdb77;
-  --blind: #c3a0ea;
-  --fixed: #f89a84;
-  --truth: #eef4eb;
-  --obstacle: #34413a;
-  --obstacle-edge: #4a594f;
-  --rough: #8e7c4c;
-  --prior: #93a197;
-  --beam: #9cdb77;
-  --good: #9cdb77;
-  --bad: #f89a84;
-  --shadow: 0 1px 0 rgb(0 0 0 / 0.3), 0 22px 44px -32px rgb(0 0 0 / 0.9);
-  --glass: rgb(27 36 30 / 0.92);
-  --glass-chrome: rgb(16 22 18 / 0.8);
-  --glass-edge: rgb(255 255 255 / 0.07);
-  --glass-shine: inset 0 1px 0 rgb(255 255 255 / 0.04);
-  --glow-1: rgb(156 219 119 / 0.06);
-  --glow-2: rgb(195 160 234 / 0.05);
-  --glow-3: rgb(248 154 132 / 0.04);
+  --coral: #3a1c21;
+  --coral-lo: #ff8b8e;
+  --coral-hi: #ffb3b0;
+  --ink: #fbede6;
+  --ink-2: #e2cdc6;
+  --soft: #c2aaa3;
+  --faint: #93807b;
+  --paper: #1a1113;
+  --paper-2: #241719;
+  --cream: #2c1d20;
+  --surface: #221619;
+  --line: rgb(255 240 232 / 0.1);
+  --rule: rgb(255 240 232 / 0.14);
+  --grid: rgb(255 240 232 / 0.07);
+  --canvas: #3a1c21;
+  --accent: #ff8b8e;
+
+  --info: #7fa8ff;
+  --blind: #f2b04a;
+  --fixed: #fbede6;
+  --truth: #fbede6;
+  --obstacle: #3d2a2d;
+  --obstacle-edge: #6a5054;
+  --rough: #a78350;
+  --prior: #b39a9e;
+  --good: #7fa8ff;
+  --bad: #ff8b8e;
+  --shadow-card: 0 0 0 1px rgb(255 240 232 / 0.06), 0 30px 60px -36px rgb(0 0 0 / 0.8);
 }
 
 /* ------------------------------------------
