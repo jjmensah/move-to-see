@@ -324,7 +324,7 @@ code {
 .band {
   padding-block: clamp(80px, 11vw, 130px);
 }
-.band.brand {
+.band.vivid {
   background: var(--brand);
 }
 .band.paper {
@@ -356,13 +356,13 @@ code {
 .band.paper .kicker {
   color: var(--accent);
 }
-.band.brand,
+.band.vivid,
 .hero {
   --soft: var(--ink-2);
   --faint: var(--ink-2);
 }
 /* On light teal the secondary ink is darkened to keep 4.5:1. */
-:root:not([data-theme="dark"]) :is(.band.brand, .hero, .final, .footer) {
+:root:not([data-theme="dark"]) :is(.band.vivid, .hero, .final, .footer) {
   --ink-2: #16302f;
 }
 
