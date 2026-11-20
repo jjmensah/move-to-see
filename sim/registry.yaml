@@ -1,0 +1,117 @@
+# Experiment registry (schema: sim/run.py). Hypotheses, sample sizes, seeds and pass criteria are fixed here
+# before the first full run of each experiment (docs/verification/vv-plan.md §1.2). Seeds >= 9000 are pilots.
+- id: F01
+  title: 3D measurement model against the waveform truth
+  hypothesis: >-
+    The analytic beam model predicts the simulated amplitude-threshold crossing rate (P_D) and, at high SNR,
+    the range standard deviation, for a facing panel seen by 3D raster beams at two elevations, for black and
+    white surfaces, in clear air, fog and sunlight; no-return beams report at the rate P_FA |W| / L_c.
+  criteria:
+    crossing_rate_in_simultaneous_wilson: predicted P_D inside the Bonferroni (familywise 99 %) Wilson interval of the simulated crossing rate in every cell
+    high_snr_std_ratio_within_5pct: for cells with P_D > 0.999999 and wrap probability < 1e-6, unwrap-free range std / sigma_R within 1 +/- 0.05
+    false_report_rate_in_wilson99: predicted P_FA |W| / L_c inside the 99 % Wilson interval of the no-return report rate (clear air and sunlight)
+  equations: [E7, E8, E15, E16, E17, F3, F5]
+  params: {conditions: [C1, C2, C3], elevations_deg: [0.0, 20.0], ranges_m: [1.0, 2.0, 3.0, 4.0, 5.0], n_no_return: 1000000}
+  n: 4000
+  seed: 5111
+  script: sim/experiments/F01_measurement.py
+  outputs: [sim/out/F01/pd_vs_range.pdf, sim/out/F01/metrics.json]
+  tests: [T-S1, T-S3]
+  exploratory: false
+- id: F02
+  title: Field of view in 3D and dependence on the robot state
+  hypothesis: >-
+    The geometric, line-of-sight and effective fields of view are nested; the effective FOV of a dark probe
+    shrinks in fog and further in sunlight as r_50 predicts; and a moving robot's scan differs from a static one
+    exactly by the displacement of the sensor origin at each beam's fire time (scan skew).
+  criteria:
+    nested_geometric_los_effective: effective subset of line-of-sight subset of geometric for every sampled point, pose, probe and condition
+    black_volume_clear_gt_fog_gt_sun: black-probe effective volume ordered clear > fog > sunlight at every pose
+    effective_volume_matches_independent_3pct: Monte Carlo effective volume within 3 % of the independent direction quadrature with r_50 from the midterm calibration formulas
+    moving_origin_range_error_below_1e-9: traced ranges equal the analytic moving-origin ranges within 1e-9 m at every speed
+    skew_nonzero_and_increasing_with_speed: maximum skew is zero at rest (below 1e-12 m) and increases with speed
+  equations: [E2, E3a, E5, E16, F1, F4, F6]
+  params: {poses: [[1.0, 4.0, 0.0], [6.1, 4.0, 0.0], [7.8, 6.3, -1.5708]], speeds: [0.0, 0.5, 1.0]}
+  n: 1000000
+  seed: 5112
+  script: sim/experiments/F02_fov.py
+  outputs: [sim/out/F02/fov_state.pdf, sim/out/F02/metrics.json]
+  tests: [T-S2, T-R1, T-R2]
+  exploratory: false
+- id: F03
+  title: Calibration of the regularized particle filter
+  hypothesis: >-
+    The regularized particle filter is not over-confident: along the fixed route (no planner in the loop) the
+    truth lies inside the 90 % credible region (Gaussian approximation, NEES <= chi2_3(0.90)) at least as often
+    as nominal, allowing for the conservative kernel floor of the filter.
+  criteria:
+    not_overconfident_C1: in clear air (C1), fraction of trials with NEES <= chi2_3(0.90) is at least 0.80 after scans 20, 40 and 60
+  equations: [F9, F10, F11, F12, F13, F22]
+  params: {conditions: [C1, C2, C3], steps: 60}
+  n: 100
+  seed: 5103
+  script: sim/experiments/F03_calibration.py
+  outputs: [sim/out/F03/calibration.pdf, sim/out/F03/metrics.json]
+  tests: [T-B1, T-B2, T-P2]
+  exploratory: false
+- id: F05
+  title: Main comparison of the three controllers
+  hypothesis: >-
+    H1 the information-driven planner localizes the target faster (restricted time score) than the fixed route
+    in clear air, fog and sunlight; H2 it localizes faster than the physics-blind planner in fog and sunlight;
+    H3 (control) with a white target in clear air the physics-aware and physics-blind planners perform alike.
+  criteria:
+    H1_info_faster_than_fixed_C1_C2_C3: one-sided paired Wilcoxon signed-rank tests on the time score in C1, C2, C3, Holm-adjusted over the five tests of H1 and H2, each p < 0.01
+    H2_info_faster_than_blind_C2_C3: one-sided paired Wilcoxon signed-rank tests on the time score in C2 and C3, Holm-adjusted over the five tests, each p < 0.01
+    H3_control_equivalent_within_2s_C4: 95 % bootstrap interval of the median paired difference of the time score (info - blind) in C4 lies within +/- 2.0 s
+  equations: [F14, F15, F16, F17, F18, F19, F20, F21]
+  params: {conditions: [C1, C2, C3, C4], steps: 60}
+  n: 40
+  seed: 5105
+  script: sim/experiments/F05_main.py
+  outputs: [sim/out/F05/time_and_success.pdf, sim/out/F05/error_vs_time.pdf, sim/out/F05/paths.pdf, sim/out/F05/metrics.json]
+  tests: [T-L1, T-I2, T-C1, T-M1]
+  exploratory: false
+- id: M01
+  title: Media — one fog trial per controller
+  hypothesis: >-
+    The animations show, for one trial in fog, how each controller moves and how the belief about the target
+    evolves; they are generated from the trial records without manual editing.
+  criteria:
+    media_files_written: the three animations and the keyframe figure exist and are non-trivial in size
+    drawn_error_matches_record: the error curve drawn in the last frame of each animation equals the trial record, floored at 1 mm for the logarithmic axis (added after review, see deviations)
+  equations: [F17, F18, F19, F20]
+  params: {condition: C2, trial: 3, steps: 60}
+  n: 1
+  seed: 5107
+  script: sim/experiments/M01_media.py
+  outputs: [sim/out/M01/info.mp4, sim/out/M01/blind.mp4, sim/out/M01/fixed.mp4, sim/out/M01/keyframes.pdf, sim/out/M01/metrics.json]
+  tests: [T-C1]
+  exploratory: false
+- id: F04
+  title: Information bound against exact design-channel mutual information
+  hypothesis: >-
+    The planner utility F17 is a lower bound on the mutual information of the finite-support design channel
+    (F14) for beliefs and viewpoints that occur in trials.
+  criteria:
+    bound_below_mc_plus_3se: F17 <= exact-mixture Monte Carlo information + 3 standard errors + 0.01 nat in all 120 cases (the absolute tolerance covers information carried by events too rare for 4000 samples to resolve)
+  equations: [F14, F15, F16, F17]
+  params: {condition: C2, scans: [0, 15, 40], beliefs: 10, viewpoints: 12, M: 24}
+  n: 4000
+  seed: 5104
+  script: sim/experiments/F04_info_bound.py
+  outputs: [sim/out/F04/information_bound.pdf, sim/out/F04/metrics.json]
+  tests: [T-I1, T-I2, T-P3]
+  exploratory: false
+- id: F06
+  title: Paired C2 ablations and diagnostics
+  hypothesis: Descriptive sensitivity to support size, travel penalty, rough terrain and dark background
+  criteria: {}
+  equations: [F8, F17, F18, F20, F21]
+  params: {condition: C2, steps: 60, support_sizes: [8, 24, 48], travel_penalties: [0, 0.05, 0.2]}
+  n: 20
+  seed: 5106
+  script: sim/experiments/F06_ablations.py
+  outputs: [sim/out/F06/ablations.pdf, sim/out/F06/metrics.json]
+  tests: [T-L1, T-M1]
+  exploratory: true
