@@ -63,14 +63,13 @@ export default function Evidence() {
               const supported = e.criteria.length > 0 && e.criteria.every(c => c.supported);
               return (
                 <details key={e.id}>
-                  <summary style={{ gridTemplateColumns: "3.4em minmax(0, 1fr)" }}>
+                  <summary>
                     <span className="id">{e.id}</span>
-                    <span>{e.title}</span>
-                    <span
-                      className={`verdict${e.exploratory ? " neutral" : supported ? "" : " no"}`}
-                      style={{ gridColumn: 2, justifySelf: "start", whiteSpace: "normal" }}
-                    >
-                      {e.exploratory ? "exploratory — no gate" : supported ? "supported" : "not supported"}
+                    <span className="what">
+                      <span>{e.title}</span>
+                      <span className={`verdict${e.exploratory ? " neutral" : supported ? "" : " no"}`}>
+                        {e.exploratory ? "exploratory — no gate" : supported ? "supported" : "not supported"}
+                      </span>
                     </span>
                   </summary>
                   <div className="body">
@@ -112,19 +111,19 @@ export default function Evidence() {
               );
             })}
           </div>
-          <details className="panel">
-            <summary style={{ cursor: "pointer", paddingBlock: 8 }}>
-              Deviations from the registration ({data.deviations.length})
-            </summary>
-            <ul className="stack">
-              {data.deviations.map((d, i) => (
-                <li key={i} style={{ overflowWrap: "anywhere" }}>
-                  {d.text}
-                  <p className="prov">Source: {d.source}</p>
-                </li>
-              ))}
-            </ul>
-          </details>
+          <div className="faq">
+            <details>
+              <summary>Deviations from the registration ({data.deviations.length})</summary>
+              <ul className="stack">
+                {data.deviations.map((d, i) => (
+                  <li key={i} style={{ overflowWrap: "anywhere" }}>
+                    {d.text}
+                    <p className="prov">Source: {d.source}</p>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </div>
           <div className="panel stack">
             <h3>Test suite</h3>
             <div className="stats">

@@ -102,6 +102,38 @@ export default function App() {
     setPlaySignal(s => s + 1);
   };
 
+  const slower = results?.comparisons.find(c => c.condition === "C3" && c.against === "fixed")?.infoSlower;
+  const limits: [string, string][] = [
+    [
+      "Does the robot know the map?",
+      "Yes. Its own position, the obstacles, the terrain, the weather and the target's size and reflectivity are known; only the target's position is unknown.",
+    ],
+    [
+      "What kind of target is it?",
+      "One stationary box. It does not move, and like everything else in the yard it is a box.",
+    ],
+    [
+      "Is the physics-blind planner a fair baseline?",
+      "It is deliberately mis-specified: the same planner with a sensor model that assumes every visible point is measured. It shows the cost of ignoring the physics, not the best a simpler planner could do.",
+    ],
+    [
+      "Would a different fixed route do better?",
+      `Possibly; this is one inspection loop of many. Even this one was faster than the information-driven planner in ${slower ?? "some"} of the 40 sunlight pairs.`,
+    ],
+    [
+      "Does the fog glow?",
+      "No. The fog model attenuates the beam on the way out and back, but leaves out backscatter.",
+    ],
+    [
+      "Does it run in real time?",
+      "Not yet. The time scores count simulated seconds. On a laptop the information-driven controller took on average 0.1–0.4 s to plan and 0.7–3.2 s to update its belief per half-second step, depending on the condition.",
+    ],
+    [
+      "What do the ellipses mean?",
+      "They show two standard deviations of the belief's horizontal spread: a summary, not a calibrated credible region.",
+    ],
+  ];
+
   if (failed)
     return <div className="loading boot">The trial records could not be loaded. Refresh the page to try again.</div>;
   if (!world || !results) return <div className="loading boot">Loading 480 recorded trials…</div>;
@@ -274,55 +306,22 @@ export default function App() {
         </section>
 
         <section id="limits" className="band paper" aria-labelledby="limits-title">
-          <div className="wrap grid-2" style={{ alignItems: "start" }}>
-            <div className="section-head reveal" style={{ marginBottom: 0 }}>
+          <div className="wrap" style={{ maxWidth: 820 }}>
+            <div className="section-head reveal">
               <span className="kicker">read the results</span>
               <h2 id="limits-title">What this shows, and what it does not</h2>
               <p>
-                These are simulation results for one sensor model in one known yard. The model is carefully checked
-                against a waveform-level simulation of the same sensor, but no hardware was involved.
+                These are simulation results for one sensor model in one known yard. The model is checked against a
+                waveform-level simulation of the same sensor, but no hardware was involved.
               </p>
-              <div className="row" style={{ marginTop: 8 }}>
-                <a className="button" href={REPO}>
-                  Source code and data
-                </a>
-                <a className="button ghost" href={`${REPO}/blob/main/docs/verification/results.md`}>
-                  Full results
-                </a>
-              </div>
             </div>
-            <div className="panel">
-              <ul className="caveats">
-                <li>
-                  <b>The robot knows the map.</b> Its own position, the obstacles, the terrain, the weather and the
-                  target's size and reflectivity are known; only the target's position is unknown.
-                </li>
-                <li>
-                  <b>One stationary box.</b> The target does not move and is a box, like everything else in the yard.
-                </li>
-                <li>
-                  <b>The physics-blind planner is deliberately mis-specified.</b> It shows the cost of ignoring the
-                  physics, not the best a simpler planner could do.
-                </li>
-                <li>
-                  <b>One fixed route.</b> A different inspection loop could do better or worse; in sunlight the fixed
-                  route was faster in{" "}
-                  {results.comparisons.find(c => c.condition === "C3" && c.against === "fixed")?.infoSlower ?? "some"}{" "}
-                  of 40 pairs.
-                </li>
-                <li>
-                  <b>Fog dims, it does not glow.</b> The fog model attenuates the beam but leaves out backscatter.
-                </li>
-                <li>
-                  <b>Time is simulated time.</b> The time scores count robot seconds, not computation. On a laptop the
-                  information-driven controller took on average 0.1–0.4 s to plan and 0.7–3.2 s to update its belief per
-                  half-second step, depending on the condition, so this implementation does not yet run in real time.
-                </li>
-                <li>
-                  <b>The ellipses are summaries.</b> They show two standard deviations of the belief's horizontal
-                  spread, not a calibrated credible region.
-                </li>
-              </ul>
+            <div className="faq reveal">
+              {limits.map(([q, a]) => (
+                <details key={q}>
+                  <summary>{q}</summary>
+                  <p>{a}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>

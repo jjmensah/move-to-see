@@ -897,44 +897,75 @@ table.data .num {
 }
 
 /* ------------------------------------------
-   Evidence ledger
+   Questions
    ------------------------------------------
-   Expandable rows of registered checks. */
-.ledger {
+   FAQ-style rows for the evidence ledger and the limits: a card per item with
+   a plus that turns into a cross when it opens. */
+.ledger,
+.faq {
   display: grid;
   gap: 8px;
 }
-.ledger details {
-  border: 1px solid var(--rule);
-  border-radius: 12px;
+.ledger details,
+.faq details {
   background: var(--surface);
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px var(--line);
 }
-.ledger summary {
+.ledger summary,
+.faq summary {
   list-style: none;
   cursor: pointer;
   display: grid;
   grid-template-columns: 3.4em minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
-  padding: 12px 14px;
+  padding: 18px 22px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
-.ledger summary::-webkit-details-marker {
+.faq summary {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.ledger summary::-webkit-details-marker,
+.faq summary::-webkit-details-marker {
   display: none;
+}
+.ledger summary::after,
+.faq summary::after {
+  content: "+";
+  grid-row: 1;
+  grid-column: -2;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 0.9;
+  color: var(--accent);
+  transition: transform 0.3s var(--ease);
+}
+.ledger details[open] summary::after,
+.faq details[open] summary::after {
+  transform: rotate(45deg);
 }
 .ledger summary .id {
   font-family: var(--mono);
   font-weight: 500;
   color: var(--accent);
 }
+.ledger summary .what {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
 .ledger .body {
-  padding: 0 14px 14px calc(3.4em + 26px);
   display: grid;
   gap: 10px;
-  font-size: var(--step--1);
+  padding: 0 22px 20px calc(3.4em + 34px);
+  font-size: 14.5px;
 }
 @media (max-width: 560px) {
   .ledger .body {
-    padding-left: 14px;
+    padding-left: 22px;
   }
 }
 .ledger ul {
@@ -945,8 +976,19 @@ table.data .num {
 }
 .prov {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 12px;
   color: var(--faint);
+}
+.faq ul {
+  margin: 0;
+  padding: 0 22px 20px 40px;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.faq details p {
+  padding: 0 22px 20px;
+  font-size: 16px;
+  color: var(--ink-2);
 }
 
 /* ------------------------------------------
