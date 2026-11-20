@@ -22,8 +22,8 @@ function ScanArt() {
   const angles = [-38, -26, -14, -2, 10, 22, 34];
   return (
     <svg viewBox="0 0 240 150" aria-hidden="true">
-      <ellipse cx="150" cy="60" rx="70" ry="26" fill="var(--surface)" opacity="0.8" />
-      <ellipse cx="175" cy="96" rx="58" ry="20" fill="var(--surface)" opacity="0.6" />
+      <ellipse className="scan-fog" cx="150" cy="60" rx="70" ry="26" fill="var(--surface)" opacity="0.8" />
+      <ellipse className="scan-fog" cx="175" cy="96" rx="58" ry="20" fill="var(--surface)" opacity="0.6" />
       {angles.map(a => {
         const r = (a * Math.PI) / 180;
         const hit = Math.abs(a + 2) < 8;
