@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import Replay from "./Replay";
 import Sensor from "./Sensor";
 import Decision from "./Decision";
+import Results from "./Results";
 import ThemeToggle from "./ThemeToggle";
 import {
   CONDS,
@@ -45,7 +46,7 @@ export default function App() {
   const [results, setResults] = useState<ResultsData | null>(null);
   const [failed, setFailed] = useState(false);
   const [sel, setSel] = useState(readUrl);
-  const [playSignal] = useState(0);
+  const [playSignal, setPlaySignal] = useState(0);
   const [decisionTruth, setDecisionTruth] = useState<number[] | null>(null);
 
   useEffect(() => {
@@ -75,6 +76,19 @@ export default function App() {
     window.history.replaceState(null, "", url);
   }, []);
 
+  const openFromResults = useCallback(
+    (condition: Cond, trial: number) => {
+      pick(condition, trial);
+      const url = new URL(window.location.href);
+      url.hash = "replay";
+      window.history.pushState(null, "", url);
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById("replay")?.scrollIntoView({ behavior: still ? "auto" : "smooth" });
+      document.getElementById("replay-title")?.focus({ preventScroll: true });
+      setPlaySignal(s => s + 1);
+    },
+    [pick],
+  );
 
   if (failed)
     return <div className="loading boot">The trial records could not be loaded. Refresh the page to try again.</div>;
@@ -100,6 +114,7 @@ export default function App() {
               <a href="#replay">Replay</a>
               <a href="#sensor">Sensor</a>
               <a href="#decision">Decision</a>
+              <a href="#results">Results</a>
             </nav>
             <ThemeToggle />
           </div>
@@ -181,6 +196,19 @@ export default function App() {
           </div>
         </section>
 
+        <section id="results" className="section" aria-labelledby="results-title">
+          <div className="wrap">
+            <div className="section-head">
+              <span className="kicker">The paired trials</span>
+              <h2 id="results-title">Same target, same noise, three ways to search</h2>
+              <p>
+                In each of 40 trials per condition the three controllers face the same target position and the same
+                random noise, so every trial is a fair head-to-head. Pick a trial to watch it.
+              </p>
+            </div>
+            <Results world={world} onOpen={openFromResults} />
+          </div>
+        </section>
 
 
       </main>
