@@ -6,6 +6,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Replay from "./Replay";
+import HowItWorks from "./HowItWorks";
 import Sensor from "./Sensor";
 import Decision from "./Decision";
 import Results from "./Results";
@@ -123,6 +124,7 @@ export default function App() {
           <div className="topbar-end">
             <nav aria-label="Sections">
               <a href="#replay">Replay</a>
+              <a href="#how">How it works</a>
               <a href="#sensor">Sensor</a>
               <a href="#decision">Decision</a>
               <a href="#results">Results</a>
@@ -199,6 +201,16 @@ export default function App() {
                 a row (30 s if it never does).
               </p>
             </div>
+          </div>
+        </section>
+
+        <section id="how" className="band coral" aria-labelledby="how-title">
+          <div className="wrap">
+            <div className="section-head reveal">
+              <span className="kicker">how it works</span>
+              <h2 id="how-title">Scan. Update. Move.</h2>
+            </div>
+            <HowItWorks />
           </div>
         </section>
 
