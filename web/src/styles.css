@@ -340,6 +340,7 @@ code {
 }
 .section-head p {
   max-width: 68ch;
+  text-wrap: pretty;
   font-size: clamp(17px, 1.6vw, 19px);
   color: var(--ink-2);
 }

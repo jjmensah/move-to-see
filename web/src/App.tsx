@@ -284,7 +284,7 @@ export default function App() {
               <h2 id="results-title">Same target, same noise, three ways to search</h2>
               <p>
                 In each of 40 trials per condition the three controllers face the same target position and the same
-                random noise, so every trial is a fair head-to-head. Pick a trial to watch it.
+                random noise, so every trial is a fair head-to-head. Choose a trial to replay.
               </p>
             </div>
             <Results world={world} onOpen={openFromResults} />
