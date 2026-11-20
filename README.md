@@ -190,6 +190,59 @@ ledger, recomputes every statistic of the main comparison from the raw trial rec
 registered results. [`web/scripts/export_decisions.py`](web/scripts/export_decisions.py) exports the planning steps only
 after checking that its rerun reproduces the recorded trial.
 
+## Repository layout
+
+```text
+.
+├── docs/
+│   ├── design/            sensor specification (E1–E25), design decisions, final specification (F1–F22)
+│   ├── verification/      verification plan and the generated results
+│   ├── figures/           result figures; readme/ holds the figures on this page
+│   ├── images/            screenshots of the interactive site
+│   └── media/             animations of one fog trial per controller
+├── scripts/               concept_sketch.py and make_readme_figures.py
+├── sim/
+│   ├── registry.yaml      the registered experiments
+│   ├── run.py             runner with recorded provenance
+│   └── experiments/       F01–F06 and M01
+├── src/
+│   ├── lidar_sim/         the AMCW LiDAR simulator and analytic sensor model
+│   └── mts/               robot, world, predictor, particle belief, information bound, planner, trial runner
+├── tests/                 unit, oracle, property and contract tests
+├── web/                   the interactive site and the scripts that build its data
+└── pyproject.toml
+```
+
+## Running it
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -e ".[dev,media]"
+.venv/bin/python -m pytest                 # 666 fast tests, about 30 s
+```
+
+To reproduce the complete verification report:
+
+```bash
+.venv/bin/python -m sim.run --list                  # the registered experiments
+.venv/bin/python -m sim.run F01 F02                 # sensor-level experiments, a few minutes
+.venv/bin/python -m sim.run F03 F04 F06 M01 --jobs 9
+.venv/bin/python -m sim.run F05 --jobs 9            # the main comparison, about an hour on a laptop
+.venv/bin/python -m sim.results                     # regenerate docs/verification/results.md
+```
+
+Outputs go to `sim/out/<ID>/`: `metrics.json`, `run.json` with the seed and a fingerprint of the source, the figures
+and the trial records. Trial records are cached, so after changing the code, delete an experiment's `trials/` folder
+before rerunning it.
+
+To regenerate the figures on this page, then run the site (it needs Node.js 24 or newer):
+
+```bash
+.venv/bin/python scripts/concept_sketch.py
+.venv/bin/python scripts/make_readme_figures.py
+cd web && npm ci && npm run dev            # http://localhost:5173
+```
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
