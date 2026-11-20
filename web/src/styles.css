@@ -20,9 +20,9 @@
    yard, charts) live here too, so every chart follows the theme. */
 :root {
   color-scheme: light;
-  --coral: #ef6a6e;
-  --coral-lo: #d4505b;
-  --coral-hi: #f7a3a0;
+  --brand: #ef6a6e;
+  --brand-lo: #d4505b;
+  --brand-hi: #f7a3a0;
   --ink: #1b1214;
   --ink-2: #4a3236;
   --soft: #6b5458;
@@ -64,9 +64,9 @@
    Deep wine bands with coral accents; cards sit a shade lighter than the page. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --coral: #3a1c21;
-  --coral-lo: #ff8b8e;
-  --coral-hi: #ffb3b0;
+  --brand: #3a1c21;
+  --brand-lo: #ff8b8e;
+  --brand-hi: #ffb3b0;
   --ink: #fbede6;
   --ink-2: #e2cdc6;
   --soft: #c2aaa3;
@@ -108,7 +108,7 @@
   scroll-margin-top: 90px;
 }
 html {
-  background: var(--coral);
+  background: var(--brand);
   -webkit-text-size-adjust: 100%;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -119,7 +119,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--coral);
+  background: var(--brand);
   color: var(--ink);
   font-family: var(--text);
   font-size: 17px;
@@ -324,8 +324,8 @@ code {
 .band {
   padding-block: clamp(80px, 11vw, 130px);
 }
-.band.coral {
-  background: var(--coral);
+.band.brand {
+  background: var(--brand);
 }
 .band.paper {
   background: var(--paper);
@@ -356,13 +356,13 @@ code {
 .band.paper .kicker {
   color: var(--accent);
 }
-.band.coral,
+.band.brand,
 .hero {
   --soft: var(--ink-2);
   --faint: var(--ink-2);
 }
 /* On light coral the secondary ink is darkened to keep 4.5:1. */
-:root:not([data-theme="dark"]) :is(.band.coral, .hero, .final, .footer) {
+:root:not([data-theme="dark"]) :is(.band.brand, .hero, .final, .footer) {
   --ink-2: #33201f;
 }
 
@@ -440,7 +440,7 @@ code {
   margin-top: 0.06em;
 }
 :root[data-theme="dark"] .hero h1 .hand {
-  color: var(--coral-lo);
+  color: var(--brand-lo);
 }
 .lede {
   font-size: clamp(18px, 1.9vw, 21px);
@@ -635,8 +635,8 @@ code {
   box-shadow: 0 0 0 1px var(--rule);
 }
 .segmented button[aria-pressed="true"] {
-  background: color-mix(in srgb, var(--coral) 22%, var(--surface));
-  box-shadow: 0 0 0 1.5px var(--coral-lo);
+  background: color-mix(in srgb, var(--brand) 22%, var(--surface));
+  box-shadow: 0 0 0 1.5px var(--brand-lo);
 }
 .field {
   display: inline-flex;
@@ -662,7 +662,7 @@ input[type="range"] {
   width: 100%;
   margin: 0;
   height: 28px;
-  accent-color: var(--coral-lo);
+  accent-color: var(--brand-lo);
   cursor: pointer;
 }
 .check {
@@ -915,8 +915,8 @@ input[type="range"] {
 .callout {
   padding: 16px 18px;
   border-radius: 18px;
-  background: color-mix(in srgb, var(--coral) 14%, var(--cream));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--coral-lo) 30%, transparent);
+  background: color-mix(in srgb, var(--brand) 14%, var(--cream));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-lo) 30%, transparent);
   font-size: 14.5px;
 }
 .verdict {
@@ -1086,7 +1086,7 @@ table.data .num {
   color: #ffffff;
 }
 :root[data-theme="dark"] .final h2 .hand {
-  color: var(--coral-lo);
+  color: var(--brand-lo);
 }
 .footer {
   display: flex;

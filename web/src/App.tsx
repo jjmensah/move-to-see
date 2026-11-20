@@ -237,7 +237,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="how" className="band coral" aria-labelledby="how-title">
+        <section id="how" className="band brand" aria-labelledby="how-title">
           <div className="wrap">
             <div className="section-head reveal">
               <span className="kicker">how it works</span>
@@ -262,7 +262,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="decision" className="band coral" aria-labelledby="decision-title">
+        <section id="decision" className="band brand" aria-labelledby="decision-title">
           <div className="wrap">
             <div className="section-head reveal">
               <span className="kicker">the next view</span>
@@ -291,7 +291,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="evidence" className="band coral" aria-labelledby="evidence-title">
+        <section id="evidence" className="band brand" aria-labelledby="evidence-title">
           <div className="wrap">
             <div className="section-head reveal">
               <span className="kicker">the checks</span>

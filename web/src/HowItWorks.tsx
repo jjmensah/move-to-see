@@ -43,7 +43,7 @@ function ScanArt() {
         );
       })}
       <rect x="168" y="84" width="22" height="22" rx="3" fill="var(--truth)" />
-      <circle cx="44" cy="102" r="13" fill="var(--coral-lo)" stroke="var(--surface)" strokeWidth="3" />
+      <circle cx="44" cy="102" r="13" fill="var(--brand-lo)" stroke="var(--surface)" strokeWidth="3" />
       <line x1="44" y1="102" x2="62" y2="102" stroke="var(--surface)" strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
@@ -107,8 +107,8 @@ function MoveArt() {
         strokeWidth="2.4"
         strokeDasharray="5 5"
       />
-      <circle cx="142" cy="74" r="12" fill="none" stroke="var(--coral-lo)" strokeWidth="3" />
-      <circle cx="32" cy="118" r="10" fill="var(--coral-lo)" stroke="var(--surface)" strokeWidth="3" />
+      <circle cx="142" cy="74" r="12" fill="none" stroke="var(--brand-lo)" strokeWidth="3" />
+      <circle cx="32" cy="118" r="10" fill="var(--brand-lo)" stroke="var(--surface)" strokeWidth="3" />
     </svg>
   );
 }
