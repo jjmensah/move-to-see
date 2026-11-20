@@ -60,6 +60,16 @@ try {
         `${tag}: theme not resolved from the system`,
       );
       await page.getByRole("img", { name: /Top-down replay of trial 3/ }).waitFor();
+      // "Watch a trial" scrolls to the stage and starts playing; the navigation turns to glass.
+      await page.getByRole("button", { name: "Watch a trial" }).click();
+      await page.getByRole("button", { name: "Pause" }).waitFor({ timeout: 5000 });
+      const solid = await page
+        .locator(".bar.solid")
+        .waitFor({ timeout: 5000 })
+        .then(() => true)
+        .catch(() => false);
+      check(solid, `${tag}: navigation did not turn solid after scrolling`);
+      await page.getByRole("button", { name: "Pause" }).click();
       // Play the trial to the end.
       await page.getByRole("button", { name: "Play" }).click();
       await page
@@ -113,6 +123,11 @@ try {
         );
         await page.getByRole("img", { name: /Top-down replay of trial 5 in Clear/ }).waitFor();
       } else fail.push(`${tag}: no "open in the replay" button`);
+      // A question in the limits opens to show its answer.
+      await page.locator("#limits").scrollIntoViewIfNeeded();
+      const question = page.locator("#limits details").first();
+      await question.locator("summary").click();
+      check(await question.evaluate(d => d.open), `${tag}: a limits question did not open`);
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
