@@ -53,6 +53,47 @@ LiDAR simulator, which it extends to 3D and then uses for inference and planning
   plus registered experiments that check the sensor model, the field of view, the filter and the information bound on
   their own.
 
+## How it works
+
+<p align="center"><img src="docs/figures/readme/loop.png" alt="The perception loop: robot, 3D LiDAR, target belief, viewpoint planner" width="820"></p>
+
+**The robot.** A unicycle with acceleration and turn-rate limits that slows to 0.3 m/s on rough ground. It knows its
+own pose and the map of the yard; only the target's position is unknown.
+
+**The sensor.** A two-frequency AMCW LiDAR scanning 121 × 11 beams over 240° by 50°, each beam traced as nine
+Gauss–Hermite sub-rays. Its ground truth is a waveform-level simulation: Lambertian returns, fog attenuation, sunlight
+shot noise, phase unwrapping and a constant-false-alarm detector. The robot reasons with a separately written analytic
+model of the same sensor, which predicts, for every beam, the probability of a detection and the noise on its range.
+
+<p align="center"><img src="docs/figures/readme/detection_range.png" alt="Detection probability against range for a black target in clear air, fog and sunlight" width="760"></p>
+
+For an unobstructed target facing the sensor, a beam detects a black target (reflectivity 0.05) half the time at
+2.92 m in clear air, 1.98 m in fog and 1.46 m in sunlight, while in clear air a white target is detected across the whole
+5.6 m reporting window. Incidence angle and occlusion shorten these ranges further. That is why where the robot stands
+matters.
+
+**The belief.** An approximate, regularized particle filter with 2000 particles over the target's 3D position. Each scan updates it
+with the analytic likelihood, which also counts what the robot did *not* see: a dark target that hides a brighter
+surface behind it is informative even when it returns nothing.
+
+**The planner.** For each candidate viewpoint on a reachable lattice, the planner computes a Bhattacharyya lower bound
+on the expected information gain over 24 target hypotheses sampled from the belief, and subtracts 0.05 nat per second
+of travel. It keeps its current goal unless another viewpoint beats it by 0.05 nat, and skips viewpoints too far away
+to win. To stay fast, planning predicts each viewpoint with a simplified version of the sensor model: one ray per beam
+from a standing robot, without mixed pixels, scan skew or phase-wrap outliers.
+
+<p align="center"><img src="docs/figures/readme/planner_step.png" alt="One planning step: candidate viewpoints coloured by score, the belief particles and the chosen goal" width="760"></p>
+
+Five seconds into fog trial 0, the high-scoring viewpoints surround the region where the target may be, at distances
+where a dark target can still be detected through the fog. The robot keeps its previous goal at (6.05, 4.05) m, which is
+also the best this step: 3.09 nat of information minus 0.30 nat for 6 s of travel.
+
+**The baselines.** The *fixed route* drives a preset inspection loop around the yard. The *physics-blind* planner is
+the same planner choosing viewpoints with a sensor model that assumes every visible point within range is detected,
+with constant range noise. All three controllers update their belief with the same full-physics model, so the only
+difference between them is how they pick where to go. Each trial gives all three the same target position and the same
+random noise, so every trial is a paired comparison.
+
 ---
 
 <p align="center">Joseph Junior Mensah · <a href="https://josephjuniormensah.com">josephjuniormensah.com</a></p>
