@@ -16,7 +16,7 @@ import { ellipse } from "./lib/geometry";
 // ------------------------------------------
 // Pixels per metre in the view box, and the margin around the yard.
 export const PX = 56; // pixels per metre in the viewBox
-const PAD = 36;
+const PAD = 40;
 
 // ------------------------------------------
 // Frame
