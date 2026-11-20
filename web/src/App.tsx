@@ -11,6 +11,7 @@ import Decision from "./Decision";
 import Results from "./Results";
 import Evidence from "./Evidence";
 import ThemeToggle from "./ThemeToggle";
+import { useScrolled } from "./hooks";
 import {
   CONDS,
   load,
@@ -50,6 +51,7 @@ export default function App() {
   const [sel, setSel] = useState(readUrl);
   const [playSignal, setPlaySignal] = useState(0);
   const [decisionTruth, setDecisionTruth] = useState<number[] | null>(null);
+  const scrolled = useScrolled();
 
   useEffect(() => {
     Promise.all([load<World>("world.json"), load<ResultsData>("results.json")])
@@ -105,9 +107,9 @@ export default function App() {
       <a className="skip" href="#replay">
         Skip to the replay
       </a>
-      <div className="bar">
-        <header className="wrap topbar">
-          <a className="brand" href="#replay">
+      <div className={`bar${scrolled ? " solid" : ""}`}>
+        <header className="topbar">
+          <a className="brand" href="#top">
             <img src="./icon.svg" alt="" />
             Move to See
           </a>
@@ -121,11 +123,14 @@ export default function App() {
               <a href="#limits">Limits</a>
             </nav>
             <ThemeToggle />
+            <a className="button" href={REPO}>
+              Source
+            </a>
           </div>
         </header>
       </div>
 
-      <main>
+      <main id="top">
         <section id="replay" className="wrap hero" aria-labelledby="replay-title">
           <div className="hero-top">
             <div className="stack" style={{ gap: 18 }}>

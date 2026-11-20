@@ -225,100 +225,94 @@ code {
 }
 
 /* ------------------------------------------
-   Top bar
+   Navigation
    ------------------------------------------
-   Sticky bar with the brand, section links and theme switch. */
+   A floating pill that turns to glass once the page scrolls. */
 .bar {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--glass-chrome);
-  border-bottom: 1px solid var(--glass-edge);
-  backdrop-filter: blur(14px) saturate(150%);
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  width: min(1100px, calc(100% - 24px));
+  border-radius: 999px;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s;
+}
+.bar.solid {
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 8px 24px -14px rgb(60 10 20 / 0.3);
 }
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-block: 14px;
-  font-size: var(--step--1);
-}
-.topbar nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(12px, 2.4vw, 26px);
-}
-.topbar nav a {
-  text-decoration: none;
-  color: var(--soft);
-}
-.topbar nav a:hover {
-  color: var(--ink);
-}
-.topbar-end {
-  display: flex;
-  align-items: center;
-  gap: clamp(12px, 2.4vw, 26px);
+  gap: 24px;
+  height: 54px;
+  padding: 0 9px 0 18px;
 }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: var(--step-1);
-  letter-spacing: -0.03em;
+  gap: 9px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.02em;
   text-decoration: none;
 }
 .brand img {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
 }
-@media (max-width: 760px) {
-  .topbar {
-    flex-wrap: wrap;
-    row-gap: 8px;
-    padding-block: 10px;
-  }
-  .topbar-end {
-    display: contents;
-  }
+.topbar-end {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+}
+.topbar nav {
+  display: flex;
+  gap: 22px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.topbar nav a {
+  text-decoration: none;
+  opacity: 0.72;
+  transition: opacity 0.2s;
+}
+.topbar nav a:hover {
+  opacity: 1;
+}
+@media (max-width: 860px) {
   .topbar nav {
-    order: 3;
-    width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 18px;
-    padding-bottom: 2px;
-    scrollbar-width: none;
+    display: none;
   }
 }
-.plain {
-  all: unset;
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--ink);
+  color: var(--paper);
   cursor: pointer;
-  border-radius: 4px;
+  transition: transform 0.3s var(--ease);
 }
-.plain:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+.theme-toggle:hover {
+  transform: translateY(-1px);
 }
-.wide-chart {
-  overflow-x: auto;
-}
-@media (max-width: 560px) {
-  .wide-chart > svg {
-    min-width: 560px;
-  }
-  .chart.sensor-chart text {
-    font-size: 18px;
-  }
-  .wide-chart .chart text {
-    font-size: 15px;
-  }
-  .wide-chart .chart text.label {
-    font-size: 16px;
-  }
+.topbar .button {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
 }
 
 /* ------------------------------------------
@@ -863,72 +857,5 @@ table.data .num {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
-  }
-}
-
-/* ------------------------------------------
-   Background and theme switch
-   ------------------------------------------
-   Soft background glow and the round theme button. */
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(44vmax 44vmax at 92% 8%, var(--glow-1), transparent 70%),
-    radial-gradient(38vmax 38vmax at 4% 38%, var(--glow-2), transparent 70%),
-    radial-gradient(46vmax 36vmax at 50% 105%, var(--glow-3), transparent 70%);
-}
-.theme-toggle {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  border: 1px solid var(--rule);
-  background: var(--surface);
-  color: var(--ink);
-  cursor: pointer;
-}
-.theme-toggle:hover {
-  color: var(--accent);
-}
-@media (prefers-reduced-motion: no-preference) {
-  html.theme-anim,
-  html.theme-anim *,
-  html.theme-anim *::before,
-  html.theme-anim *::after {
-    transition:
-      background-color 280ms ease,
-      border-color 280ms ease,
-      color 280ms ease,
-      fill 280ms ease,
-      stroke 280ms ease !important;
-  }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .bar {
-    backdrop-filter: none;
-    background: var(--canvas);
-  }
-}
-@media (max-width: 560px) {
-  .scrub {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-areas: "play speed time" "range range range";
-  }
-  .scrub > button {
-    grid-area: play;
-  }
-  .scrub > .segmented {
-    grid-area: speed;
-    justify-self: start;
-  }
-  .scrub > .time {
-    grid-area: time;
-  }
-  .scrub > input {
-    grid-area: range;
   }
 }
