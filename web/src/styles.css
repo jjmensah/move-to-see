@@ -1081,8 +1081,26 @@ table.data .num {
   font-size: 14.5px;
 }
 @media (max-width: 560px) {
+  .ledger summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    padding: 16px 18px;
+  }
+  .ledger summary .id {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .ledger summary .what {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .ledger summary::after {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
   .ledger .body {
-    padding-left: 22px;
+    padding-left: 18px;
+    padding-right: 18px;
   }
 }
 .ledger ul {
