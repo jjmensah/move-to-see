@@ -95,6 +95,12 @@ export default function App() {
     [pick],
   );
 
+  const watch = () => {
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById("stage")?.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
+    setPlaySignal(s => s + 1);
+  };
+
   if (failed)
     return <div className="loading boot">The trial records could not be loaded. Refresh the page to try again.</div>;
   if (!world || !results) return <div className="loading boot">Loading 480 recorded trials…</div>;
@@ -132,48 +138,68 @@ export default function App() {
       </div>
 
       <main id="top">
-        <section id="replay" className="wrap hero" aria-labelledby="replay-title">
-          <div className="hero-top">
-            <div className="stack" style={{ gap: 18 }}>
-              <span className="kicker">Active perception · 3D LiDAR · simulation</span>
-              <h1 id="replay-title" tabIndex={-1}>
-                Where should a robot drive to <em>see</em> what it is looking for?
-              </h1>
-            </div>
-            <p className="lede">
+        <section id="replay" className="hero" aria-labelledby="replay-title">
+          <div className="wrap">
+            <h1 id="replay-title" className="reveal" tabIndex={-1}>
+              Where should a robot drive
+              <br />
+              <span className="hand">to see?</span>
+            </h1>
+            <p className="lede reveal">
               A ground robot with a simulated 3D LiDAR has to find a dark box hidden behind crates, in fog and in
-              sunlight. It decides where to drive by predicting what each viewpoint would let it measure. Replay any of
-              the 480 recorded trials.
+              sunlight. It drives to wherever its sensor will actually see it, by predicting what each viewpoint would
+              let it measure.
             </p>
-            <p className="small muted" style={{ gridColumn: "1 / -1" }}>
-              Each half second the robot scans, updates its belief about where the target is, and picks the next
-              viewpoint to drive to. Time to localize: the moment from which the robot's estimate stays within 0.10 m of
-              the target for five consecutive scans (30 s if it never does).{" "}
-              <a href={`${REPO}#how-it-works`}>How it works</a> ·{" "}
-              <a href={`${REPO}/blob/main/docs/design/final-spec.md`}>Design specification</a> ·{" "}
-              <a href={REPO}>Source</a>
-            </p>
+            <div className="cta-row reveal">
+              <button type="button" className="button lg" onClick={watch}>
+                Watch a trial
+              </button>
+              <a className="button lg ghost" href={REPO}>
+                Read the code
+              </a>
+            </div>
+            <p className="fine reveal">480 recorded trials · 666 tests · every experiment registered before it ran</p>
+            <div className="stats reveal" aria-label="Headline results in fog">
+              <div className="stat" style={{ ["--c" as string]: "var(--info)" }}>
+                <b className="num">{fog.info.medianTimeScoreS.toFixed(1)} s</b>
+                <span>
+                  median time to localize the target in fog with the physics-aware planner ({fog.info.successCount}/40
+                  localized)
+                </span>
+              </div>
+              <div className="stat" style={{ ["--c" as string]: "var(--fixed)" }}>
+                <b className="num">{fog.fixed.medianTimeScoreS.toFixed(1)} s</b>
+                <span>
+                  median for a fixed inspection route in the same trials ({fog.fixed.successCount}/40 localized)
+                </span>
+              </div>
+              <div className="stat" style={{ ["--c" as string]: "var(--blind)" }}>
+                <b className="num">{fog.blind.successCount + sun.blind.successCount}/80</b>
+                <span>fog and sunlight trials localized by the same planner when it ignores the sensor physics</span>
+              </div>
+            </div>
+            <div id="stage" className="stage-wrap reveal">
+              <div className="scribble" aria-hidden="true">
+                <span className="hand">pick a trial, press play</span>
+                <svg viewBox="0 0 120 90">
+                  <path d="M8 6 C 40 4, 78 18, 92 52 M78 44 L 93 55 L 99 37" />
+                </svg>
+              </div>
+              <div className="stage">
+                <Replay
+                  world={world}
+                  condition={sel.condition}
+                  trial={sel.trial}
+                  onPick={pick}
+                  playSignal={playSignal}
+                />
+              </div>
+              <p className="fine">
+                Time to localize: the moment from which the estimate stays within 0.10 m of the target for five scans in
+                a row (30 s if it never does).
+              </p>
+            </div>
           </div>
-          <div className="stats" aria-label="Headline results in fog">
-            <div className="stat" style={{ ["--c" as string]: "var(--info)" }}>
-              <b className="num">{fog.info.medianTimeScoreS.toFixed(1)} s</b>
-              <span>
-                median time to localize the target in fog with the physics-aware planner ({fog.info.successCount}/40
-                localized)
-              </span>
-            </div>
-            <div className="stat" style={{ ["--c" as string]: "var(--fixed)" }}>
-              <b className="num">{fog.fixed.medianTimeScoreS.toFixed(1)} s</b>
-              <span>
-                median for a fixed inspection route in the same trials ({fog.fixed.successCount}/40 localized)
-              </span>
-            </div>
-            <div className="stat" style={{ ["--c" as string]: "var(--blind)" }}>
-              <b className="num">{fog.blind.successCount + sun.blind.successCount}/80</b>
-              <span>fog and sunlight trials localized by the same planner when it ignores the sensor physics</span>
-            </div>
-          </div>
-          <Replay world={world} condition={sel.condition} trial={sel.trial} onPick={pick} playSignal={playSignal} />
         </section>
 
         <section id="sensor" className="section" aria-labelledby="sensor-title">
