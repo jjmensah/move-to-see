@@ -55,7 +55,7 @@
   --hand: "Kalam", cursive;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --shadow-card: 0 0 0 1px rgb(14 26 28 / 0.06), 0 30px 60px -36px rgb(6 60 56 / 0.4);
-  --gutter: clamp(16px, 4vw, 32px);
+  --gutter: clamp(16px, 4vw, 72px);
 }
 
 /* ------------------------------------------
@@ -183,7 +183,6 @@ code {
 }
 .wrap {
   width: 100%;
-  max-width: 1120px;
   margin: 0 auto;
   padding-inline: var(--gutter);
 }
@@ -236,7 +235,7 @@ code {
   left: 50%;
   transform: translateX(-50%);
   z-index: 50;
-  width: min(1100px, calc(100% - 24px));
+  width: calc(100% - 2 * var(--gutter) + 24px);
   border-radius: 999px;
   transition:
     background 0.3s,
@@ -411,7 +410,7 @@ code {
   grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
 }
 .grid-side-l {
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 }
 @media (max-width: 920px) {
   .grid-2,
@@ -466,7 +465,6 @@ code {
   gap: 14px;
 }
 .hero .stats {
-  max-width: 960px;
   margin: 64px auto 0;
   text-align: left;
 }
@@ -497,7 +495,6 @@ code {
 }
 .stage-wrap {
   position: relative;
-  max-width: 1080px;
   margin: 110px auto 0;
   text-align: left;
 }
@@ -1102,7 +1099,6 @@ table.data .num {
   justify-content: space-between;
   align-items: center;
   gap: 12px 24px;
-  max-width: 1120px;
   margin: 0 auto;
   padding: 24px var(--gutter) 32px;
   font-size: 14px;
